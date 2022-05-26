@@ -7,24 +7,28 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css"
         integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
     <link rel="stylesheet" href="styles.css">
+    <title>Ayelet's List</title>
 </head>
 
 <body>
     <div class="wrapper">
     <header>
         <h1>Ayelet's Todo List</h1>
+        
     </header>
     <form>
-        <input type="text" class="todo-input" required>
-        <button class="todo-button" type="submit">
+        <input type="text" id="todo-input" placeholder="Add your new todo"/>
+        <button id="todo-button" type="submit">
             <i class="fa fa-plus-square"></i>
         </button>
     </form>
     <div class="todo-container">
-        <ul class="todo-list"></ul>
+        <ul id="todo-list"></ul>
     </div>
-    <script src="app.js">
-    </script>
+    <button onclick="clearArray()" id="clear-button">Clear list</button>
+    <script src="listManager.js"></script>
+    <script src="pokemonClient.js"></script>
+    <script src="main.js"></script>
     </div>
 </body>
 
