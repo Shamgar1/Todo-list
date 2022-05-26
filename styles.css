@@ -19,12 +19,12 @@ body {
     width: 800%;
     background: rgb(230, 230, 230);
     border-radius: 5px;
-    height: 600px flex;
+    height: 700px;
     border: inherit;
 }
 
 header {
-    font-size: 4px;
+    font-size: 2rem;
 }
 
 header,
@@ -38,19 +38,18 @@ form {
 h1 {
     color: #aa8e8d;
     text-align: center;
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 900;
 }
 
 form input, form button {
-    padding: 8px;
-    font-size: 28px;
+    padding: 0.5rem;
+    font-size: 2rem;
     border: none;
     background: #aa8e8d;
     color: white;
     border-radius: 10px 10px;
 }
-
 
 form button {
     color: #aa8e8d;
@@ -59,21 +58,13 @@ form button {
     border-radius: 10px 10px;
 }
 
-#clear-button {
+.clearButton {
     color: #aa8e8d;
     background: #6d335c;
     cursor: pointer;
     border-radius: 10px 10px;
-    height: 30px;
-    width: 15%;
-    max-width: 400px;
-    margin: 200px;
-    font-size: 20px;
-}
-
-#clear-button:hover {
-    background: #aa8e8d;
-    color: #6d335c;
+    left: 200px;
+    top: 300px;
 }
 
 .trash-btn:hover {
@@ -105,7 +96,7 @@ form button:hover {
 .todo {
     margin: o.5rem;
     background: #aa8e8d;
-    font-size: 24px;
+    font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -114,17 +105,11 @@ form button:hover {
     border-radius: 10px 10px;
 }
 
-.todo:hover {
-    background: #aa8e8d;
-    color: #6d335c;
-}
-
 .todo li{
     flex: 1;
     display: list-item;
     border-radius: 10px 10px;
 }
-
 
 .trash-btn, 
 .complete-btn {
