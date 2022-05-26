@@ -16,7 +16,7 @@ class Main {
 		if (!response.ok) {
 			const message = `Could not find Pokemon id: ${name}`;
 			return message;
-		}
+		}    
 		const addPoke = await response.json();
 		return "Catch " + addPoke.name;
 	}
