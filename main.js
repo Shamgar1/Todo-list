@@ -1,4 +1,6 @@
 const mylistManager = new listManager();
+export
+
 
 // create allert on click
 const todoInput = document.getElementById("todo-input");
@@ -97,3 +99,4 @@ function clearArray() {
 	mylistManager.listArray = [];
 	todoList.innerHTML = "";
 }
+
