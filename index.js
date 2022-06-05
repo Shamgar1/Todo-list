@@ -1,35 +1,43 @@
 #! /usr/bin/env node
-const fs = require("fs");
+import chalk from "chalk";
+import fs from "fs";
 
-const program = require("commander");
-const path = "normalStdout.txt";
+// import { response } from "../pokemonClient";
+// import { addPoke } from "../pokemonClient";
+// const response = require("./appList/pokemonClient.js");
+// const addPoke = require("./appList/pokemonClient.js");
+// const main = require("../main");
+import { Command } from "commander";
+import { log } from "console";
+const path = "log.txt";
+// const addPokeAgain = new addPoke();
+
+const program = new Command();
 
 program
 	.command("add")
 	.description("Add a new to-do")
 	.argument("<string>", "first operand")
-	.action((input) => {
-		let data = input;
-
+	.action(async (data) => {
 		fs.appendFile(path, data + "\r\n", (err) => {
 			if (err) throw err;
-			console.log("New todo added successfully");
+			console.log(chalk.blue("New todo added successfully"));
 		});
 	});
 
 program
 	.command("get")
-	.description("get the to-do list")
-	.action(() => {
+	.description("Show all the items on the to-do list")
+	.action(async () => {
 		fs.readFile(path, (err, data) => {
 			if (err) throw err;
-			console.log("The to-do list:  " + data);
+			console.log(chalk.green("The to-do list:  " + data));
 		});
 	});
 
 program
 	.command("delete")
-	.description("delete to-do")
+	.description("delete a specific to-do item")
 	.argument("<number>", "first operand")
 	.action((input) => {
 		fs.readFile(path, (err, data) => {
@@ -43,7 +51,7 @@ program
 				.toString();
 			fs.writeFile(path, data, "utf8", function (err) {
 				if (err) throw err;
-				console.log("The to-do have been removed.");
+				console.log(chalk.red("The to-do have been removed."));
 			});
 		});
 	});
