@@ -1,4 +1,4 @@
-export function addPoke() {}
+import { listManager } from "./listManager";
 
 class Main {
 	constructor() {

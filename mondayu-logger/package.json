@@ -1,5 +1,5 @@
 {
-  "name": "consol-list",
+  "name": "mondayu-logger",
   "version": "1.0.0",
   "description": "A CLI to manage a TODO list",
   "main": "index.js",
