@@ -7,5 +7,3 @@ class listManager {
 		this.listArray.push(newTodo);
 	}
 }
-
-export { listManager };

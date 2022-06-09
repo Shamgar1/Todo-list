@@ -1,4 +1,7 @@
-import { listManager } from "./listManager.js";
+//import Main from "./pokemonClient.js";
+let main = new Main();
+
+// window.addEventListener("load", (event) => {
 const mylistManager = new listManager();
 
 // create allert on click
@@ -17,42 +20,18 @@ document.getElementById("todo-list").addEventListener(
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 
-const main = new Main();
-async function addTodo(event) {
-	event.preventDefault();
-
-	const fetchPokemon = todoInput.value.split(",");
-	for (let i = 0; i < fetchPokemon.length; i++) {
-		const searchNum = fetchPokemon[i];
-		//----add to my list
-		mylistManager.add(searchNum);
-		//----go to get from api
-		if (isNumeric(searchNum)) {
-			//is number
-			const response = await main.addPoke(searchNum);
-			addElemntToDom(response, searchNum);
-		} else {
-			//is string
-			addElemntToDom(searchNum, searchNum);
-		}
-	}
-
-	//---clear input
-	todoInput.value = "";
-}
-
-function isNumeric(str) {
-	if (typeof str != "string") return false;
-	return !isNaN(str);
-}
-
-function addElemntToDom(value, name) {
+function addElemntToDom(value, isPoke) {
 	//----add elemnt to page
 	const todoDiv = document.createElement("div");
 	todoDiv.classList.add("todo");
-	todoDiv.setAttribute("data-arr", name);
+	todoDiv.setAttribute("data-arr", value);
 	const newTodo = document.createElement("li");
-	newTodo.innerText = value;
+
+	if (isPoke) {
+		newTodo.innerText = "catch " + value;
+	} else {
+		newTodo.innerText = value;
+	}
 	newTodo.classList.add("todo-item");
 	todoDiv.appendChild(newTodo);
 
@@ -72,17 +51,15 @@ function addElemntToDom(value, name) {
 
 function deleteCheck(event) {
 	const item = event.target;
-
 	if (item.classList[0] === "trash-btn") {
 		const todo = item.parentElement;
 		todo.classList.add("fall");
+
+		const arrName = todo.attributes["data-arr"].value;
+		const place = mylistManager.listArray.indexOf(arrName);
+		mylistManager.listArray.splice(place, 1);
 		todo.addEventListener("transitionend", function (e) {
 			todo.remove();
-
-			const arrName = e.target.attributes["data-arr"].value;
-			const place = mylistManager.listArray.indexOf(arrName);
-
-			mylistManager.listArray.splice(place, 1);
 		});
 	}
 
