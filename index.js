@@ -27,7 +27,6 @@ program
 				if (err) throw err;
 				console.log(chalk.blue("New todo added successfully"));
 			});
-			console.log(data + " is not a number");
 		}
 	});
 
