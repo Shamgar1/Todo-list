@@ -26,7 +26,8 @@
     "config": "^3.3.7",
     "dotenv": "^16.0.1",
     "export": "^0.1.337",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "node-modules": "^0.0.1"
   },
   "bin": {
     "todos": "index.js"

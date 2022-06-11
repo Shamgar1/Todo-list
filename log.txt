@@ -1,6 +1,4 @@
 hay
-hat
-hat
 hgf
 [object Promise]
 [object Promise]
@@ -11,3 +9,137 @@ hgf
 [object Promise]
 יחיהח
 יחיהח
+[object Promise]
+[object Promise]
+[object Promise]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Promise]
+[object Object]
+קכקער
+קכקער
+[object Object]
+[object Object]
+(resolve, reject) => {
+			fetch(`${this.API_BASE}/pokemon/${name}`, {
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((res) => resolve(res))
+				.catch(() => {
+					addElemntToDom("Could not find Pokemon id" + name);
+				});
+		}
+(resolve, reject) => {
+			fetch(`${this.API_BASE}/pokemon/${name}`, {
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((res) => resolve(res))
+				.catch(() => {
+					addElemntToDom("Could not find Pokemon id" + name);
+				});
+		}
+(resolve, reject) => {
+			fetch(`${this.API_BASE}/pokemon/${name}`, {
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((res) => resolve(res))
+				.catch(() => {
+					addElemntToDom("Could not find Pokemon id" + name);
+				});
+		}
+(resolve, reject) => {
+			fetch(`${this.API_BASE}/pokemon/${name}`, {
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((res) => resolve(res))
+				.catch(() => {
+					addElemntToDom("Could not find Pokemon id" + name);
+				});
+		}
+(resolve, reject) => {
+			fetch(`${this.API_BASE}/pokemon/${name}`, {
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((res) => resolve(res))
+				.catch(() => {
+					addElemntToDom("Could not find Pokemon id" + name);
+				});
+		}
+קכקער
+קכקער
+(resolve, reject) => {
+			fetch(`${this.API_BASE}/pokemon/${name}`, {
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((res) => resolve(res))
+				.catch(() => {
+					addElemntToDom("Could not find Pokemon id" + name);
+				});
+		}
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+[object Promise]
+[object Promise]
+undefined
+undefined
+undefined
+undefined
+ivysaur
+ivysaur
+ivysaur
+charizard
+blastoise
+blastoise
+blastoise
+blastoise
+blastoise
+blastoise
+blastoise
+blastoise

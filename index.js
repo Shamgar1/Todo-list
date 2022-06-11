@@ -3,10 +3,11 @@ import chalk from "chalk";
 import fs from "fs";
 import { Command } from "commander";
 import { log } from "console";
-// import Main from "./pokemonClient.js";
+// import response from "./pokemonClient";
+import pokemonClient from "./pokemonClient.js";
 const program = new Command();
 const path = "log.txt";
-// let main = new Main();
+let main = new pokemonClient();
 
 program
 	.command("add")
@@ -15,14 +16,11 @@ program
 	.action(async (data) => {
 		if (!isNaN(data)) {
 			// is a number
-			console.log(data + " is a number");
-
-			// const response = main.addPokePromise(data);
-			// console.log("maayan" + response);
-			// // fs.appendFile(path, response + "\r\n", (err) => {
-			// 	if (err) throw err;
-			// 	console.log(chalk.blue("New todo added successfully"));
-			// });
+			const response = await main.addPokePromise(data);
+			fs.appendFile(path, response + "\r\n", (err) => {
+				if (err) throw err;
+				console.log(chalk.blue("New todo added successfully"));
+			});
 		} else {
 			// not a number
 			fs.appendFile(path, data + "\r\n", (err) => {
