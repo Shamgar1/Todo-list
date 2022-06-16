@@ -21,31 +21,15 @@ class Main {
 		})
 			// .then((res) => res.json())
 			// .then((res) => console.log(res));
-			.then(function (response) {
-				if (!response.ok) {
-					// const error = `Could not find Pokemon id: ${todoInput}`;
-					return Promise.reject(error);
-				}
-				return response.json();
+			.then(function (res) {
+				location.reload();
+				return res.json();
 			})
-			// .then((data) => console.log(data))
 			.catch((error) => {
-				const message = `Could not find Pokemon id: ` + todoInput.value;
-				console.log("Could not find Pokemon id:", error);
-				let noPokimon = response.json;
-				return noPokimon(message);
-				// return error;
+				console.log(error);
+				return error;
 			});
 	};
-
-	// deleteItem = async (item) => {
-	// 	fetch(`/api/todo/${item.id}`, { method: "DELETE" })
-	// 		.then((res) => res.json())
-	// 		.then((json) => {
-	// 			let elment = document.querySelectorAll(`[data-id="${item.id}"]`);
-	// 			elment.parentNode.removeChild(elment);
-	// 		});
-	// };
 
 	renderItems = async () => {
 		const list = document.getElementById("todo-list");
@@ -54,12 +38,11 @@ class Main {
 			.then((res) => res.json())
 			.then((json) => {
 				json.forEach((item, i) => {
-					const listItem = document.createElement("li");
+					let listItem = document.createElement("li");
 					listItem.classList.add("list-item");
 					let itemId = i + 1;
 					listItem.setAttribute("data-id", itemId);
 					listItem.innerHTML = item.name;
-
 					const listItemDeleteButton = this._createDeleteButton(item);
 					listItem.appendChild(listItemDeleteButton);
 					list.appendChild(listItem);
@@ -67,11 +50,30 @@ class Main {
 			});
 	};
 
+	deleteItem = async (item) => {
+		console.log("hay");
+		let listItem = document.getElementById("li");
+		let itemId = document.getAttribute("data-id");
+		console.log("itemId");
+		fetch(`/api/todo/${itemId}`, { method: "DELETE" })
+			.then((res) => res.json())
+			.then((json) => {
+				console.log(item);
+				console.log(itemId);
+				let elment = document.querySelectorAll(`[data-id="${itemId}"]`);
+				elment.parentNode.removeChild(elment);
+			});
+	};
+
 	_createDeleteButton = (item) => {
+		// let listItem = document.getElementById("li");
 		const button = document.createElement("img");
 		button.src = "./images/delete_icon.svg";
 		button.classList.add("list-item-delete-button");
-		button.addEventListener("click", (_) => this.deleteItem(item));
+
+		// let deleteButton = document.getElementById("todo-button");
+		button.addEventListener("click", (_) => console.log("hay"));
+		//  this.deleteItem(item));
 		return button;
 	};
 }

@@ -1,14 +1,11 @@
 const fs = require("fs");
+const { parse } = require("path");
 const { message } = require("statuses");
 const express = require("express"),
 	axios = require("axios").default,
 	router = express.Router(),
 	itemManager = require("../services/itemManager");
-// bodyparser = require("body-parser");
-// import { getAll } from "../services/itemManager";
 
-// router.use(express.urlencoded({ extended: false }));
-// router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.get("/todo", async (req, res) => {
 	let data = await itemManager.getAll();
@@ -19,18 +16,22 @@ router.post("/todo", async (req, res) => {
 	try {
 		let { todoInput } = req.body;
 		let data = false;
-		if (isNaN(todoInput)) {
-			data = await itemManager.addTodo(todoInput);
-		} else {
-			data = await getPokimonNum(todoInput);
-			data = "catch " + data;
-			data = await itemManager.addTodo(data);
+		const fetchPokemon = todoInput.split(",");
+		for (let i = 0; i < fetchPokemon.length; i++) {
+			const searchNum = fetchPokemon[i];
+			if (isNaN(searchNum)) {
+				data = await itemManager.addTodo(searchNum);
+			} else {
+				data = await getPokimonNum(searchNum);
+				data = "catch " + data;
+				data = await itemManager.addTodo(data);
+			}
 		}
 		if (data) {
 			return res.json({ sucsess: true });
 		}
 	} catch (error) {
-		return res.send(error.message);
+		return res.json({ sucsess: true });
 	}
 });
 
@@ -39,7 +40,9 @@ async function getPokimonNum(id) {
 		const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
 		return res.data.name;
 	} catch (error) {
-		throw new Error("Unable to get a token.");
+		data = `Could not find Pokemon id: ${id}`;
+		data = await itemManager.addTodo(data);
+		return res.json({ sucsess: true });
 	}
 }
 
