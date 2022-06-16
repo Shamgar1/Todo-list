@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css"
+        integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css"
+        integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
+    <link rel="stylesheet" href="styles.css">
+    <title>Ayelet's List</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Ayelet's Todo List</h1>
+
+        </header>
+        <form action="/todo" method="post"></form>
+            <input type="text" id="todo-input" placeholder="Add your new todo" />
+            <button id="todo-button" type="submit">
+                <i class="fa fa-plus-square"></i>
+            </button>
+        </form>
+        <div class="todo-container">
+            <ul id="todo-list"></ul>
+        </div>
+        <button onclick="clearArray()" id="clear-button">Clear list</button>
+        <script src="./pokemonClient.js"></script>
+        <!-- <script src="listManager.js"></script> -->
+        <script src="./main.js"></script>
+        <!-- <script src="main.js"></script> -->
+    </div>
+</body>
+
+</html>
+

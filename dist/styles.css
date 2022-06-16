@@ -42,21 +42,29 @@ h1 {
     font-weight: 900;
 }
 
-form input, form button {
+#todo-input, #todo-button {
     padding: 8px;
     font-size: 28px;
     border: none;
     background: #aa8e8d;
     color: white;
     border-radius: 10px 10px;
+    align-items: center;
 }
 
 
-form button {
+#todo-button {
     color: #aa8e8d;
     background: #6d335c;
     cursor: pointer;
     border-radius: 10px 10px;
+    padding: 8px;
+    font-size: 28px;
+    border: none;
+    background: #aa8e8d;
+    color: white;
+    border-radius: 10px 10px;
+    align-items: center;
 }
 
 #clear-button {
@@ -76,7 +84,7 @@ form button {
     color: #6d335c;
 }
 
-.trash-btn:hover {
+.list-item-delete-button:hover {
     background: #aa8e8d;
     color: #6d335c;
 }
@@ -102,7 +110,7 @@ form button:hover {
     min-width: 30%
 }
 
-.todo {
+.list-item {
     margin: o.5rem;
     background: #aa8e8d;
     font-size: 24px;
@@ -114,22 +122,21 @@ form button:hover {
     border-radius: 10px 10px;
 }
 
-.todo:hover {
+.list-item:hover {
     background: #aa8e8d;
     color: #6d335c;
 }
 
-.todo li{
+.list-item li{
     flex: 1;
     display: list-item;
     border-radius: 10px 10px;
 }
 
 
-.trash-btn, 
-.complete-btn {
+.list-item-delete-button{
     background: #6d335c;
-    color: #aa8e8d;
+    color: aliceblue;
     border: none;
     padding: 1rem;
     cursor: pointer;
@@ -140,10 +147,11 @@ form button:hover {
 .todo-item {
     padding: 0rem 0.5rem;
     position: relative; 
-    border-radius: 10px 10px;
+    border-radius: 20px 20px;
+    padding: 1rem;
 }
 
-.fa-trash,
+.list-item-delete-button,
 .fa-check {
     pointer-events: none;
     border-radius: 10px 10px;

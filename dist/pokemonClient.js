@@ -1,5 +1,4 @@
-import fetch from "node-fetch";
-export default class pokemonClient {
+class pokemonClient {
 	constructor() {
 		this.API_BASE = "https://pokeapi.co/api/v2";
 	}

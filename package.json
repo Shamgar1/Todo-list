@@ -1,12 +1,11 @@
 {
-  "name": "consol-list",
+  "name": "monday-u-exercises",
   "version": "1.0.0",
-  "description": "A CLI to manage a TODO list",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
+  "description": "",
+  "main": "C:/Users/User/monday-u-exercises/dist/main.js",
+    "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index"
+    "dev": "nodemon main.js"
   },
   "repository": {
     "type": "git",
@@ -19,17 +18,36 @@
   },
   "homepage": "https://github.com/Shamgar1/monday-u-exercises#readme",
   "dependencies": {
-    "chalk": "^4.1.0",
-    "commander": "^9.3.0",
-    "common.js": "^0.0.0",
-    "conf": "^10.1.2",
-    "config": "^3.3.7",
-    "dotenv": "^16.0.1",
-    "export": "^0.1.337",
-    "node-fetch": "^2.6.7",
-    "node-modules": "^0.0.1"
-  },
-  "bin": {
-    "todos": "index.js"
-  }
-}
+    "body-parser": "^1.20.0",
+    "bytes": "^3.1.2",
+    "call-bind": "^1.0.2",
+    "content-type": "^1.0.4",
+    "debug": "^2.6.9",
+    "depd": "^2.0.0",
+    "destroy": "^1.2.0",
+    "ee-first": "^1.1.1",
+    "function-bind": "^1.1.1",
+    "get-intrinsic": "^1.1.2",
+    "has": "^1.0.3",
+    "has-symbols": "^1.0.3",
+    "http-errors": "^2.0.0",
+    "iconv-lite": "^0.4.24",
+    "inherits": "^2.0.4",
+    "media-typer": "^0.3.0",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
+    "ms": "^2.0.0",
+    "nodemon": "^2.0.16",
+    "object-inspect": "^1.12.2",
+    "on-finished": "^2.4.1",
+    "qs": "^6.10.3",
+    "raw-body": "^2.5.1",
+    "safer-buffer": "^2.1.2",
+    "setprototypeof": "^1.2.0",
+    "side-channel": "^1.0.4",
+    "statuses": "^2.0.1",
+    "toidentifier": "^1.0.1",
+    "type-is": "^1.6.18",
+    "unpipe": "^1.0.0"
+  }}
+
