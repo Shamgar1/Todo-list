@@ -1,6 +1,12 @@
+// import ItemClient from "./clients/item_client";
+// import addTodo from "./clients/item_client";
+// import renderItems from "./clients/item_client";
+// import deleteItem from "./clients/item_client";
+// import { ItemClient } from "itemClient";
+
 class Main {
 	constructor() {
-		// this.itemClient = new ItemClient();
+		this.itemClient = new ItemClient();
 	}
 
 	init = async () => {
@@ -9,61 +15,50 @@ class Main {
 		await this.renderItems(); // this will make it so that any time you refresh the page you'll see the items already in your todo list
 	};
 
+	//adding a todo
 	handleItem = async () => {
 		let todoInput = document.getElementById("todo-input").value;
-		console.log(todoInput);
-		fetch(`/api/todo`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-			method: "POST",
-			body: JSON.stringify({ todoInput }),
-		})
-			// .then((res) => res.json())
-			// .then((res) => console.log(res));
-			.then(function (res) {
-				location.reload();
-				return res.json();
-			})
-			.catch((error) => {
-				console.log(error);
-				return error;
-			});
+		const item = await itemClient.addTodo(todoInput);
+		// return item;
+		// item = res.json();
+		// return res.json();
+		// const item = itemClient.addTodo(todoInput);
+		// console.log(todoInput);
 	};
 
 	renderItems = async () => {
 		const list = document.getElementById("todo-list");
 		list.innerHTML = "";
-		fetch("/api/todo")
-			.then((res) => res.json())
-			.then((json) => {
-				json.forEach((item, i) => {
-					let listItem = document.createElement("li");
-					listItem.classList.add("list-item");
-					let itemId = i + 1;
-					listItem.setAttribute("data-id", itemId);
-					listItem.innerHTML = item.name;
-					const listItemDeleteButton = this._createDeleteButton(item);
-					listItem.appendChild(listItemDeleteButton);
-					list.appendChild(listItem);
-				});
-			});
+		const items = await itemClient.renderItems();
+
+		items.forEach((item, i) => {
+			let listItem = document.createElement("li");
+			listItem.classList.add("list-item");
+			let itemId = i + 1;
+			listItem.setAttribute("data-id", itemId);
+			listItem.innerHTML = item.name;
+			const listItemDeleteButton = this._createDeleteButton(item);
+			listItem.appendChild(listItemDeleteButton);
+			list.appendChild(listItem);
+		});
+		// list.addEventListener("click", function (e) {
+		// 	if (e.target.classList.contains("list-item")) {
+		// 		main.deleteItem(e.target.dataset.id);
+		// 	}
+		// });
 	};
 
-	deleteItem = async (item) => {
-		console.log("hay");
-		let listItem = document.getElementById("li");
-		let itemId = document.getAttribute("data-id");
-		console.log("itemId");
-		fetch(`/api/todo/${itemId}`, { method: "DELETE" })
-			.then((res) => res.json())
-			.then((json) => {
-				console.log(item);
-				console.log(itemId);
-				let elment = document.querySelectorAll(`[data-id="${itemId}"]`);
-				elment.parentNode.removeChild(elment);
-			});
-	};
+	// deleteItem = async (item) => {
+	// 	// console.log("hay");
+	// 	// const item = document.getElementById("li");
+	// 	const deleteItem = await deleteItem(item);
+	// 	// let itemId = document.getAttribute("data-id");
+	// 	// console.log("itemId");
+	// 	// console.log(item);
+	// 	// console.log(itemId);
+	// 	let elment = document.querySelectorAll(`[data-id="${itemId}"]`);
+	// 	elment.parentNode.removeChild(elment);
+	// };
 
 	_createDeleteButton = (item) => {
 		// let listItem = document.getElementById("li");
@@ -72,14 +67,14 @@ class Main {
 		button.classList.add("list-item-delete-button");
 
 		// let deleteButton = document.getElementById("todo-button");
-		button.addEventListener("click", (_) => console.log("hay"));
-		//  this.deleteItem(item));
+		button.addEventListener("click", (_) => this.deleteItem(item));
 		return button;
 	};
 }
-
+const itemClient = new ItemClient();
 const main = new Main();
 
 document.addEventListener("DOMContentLoaded", function () {
 	main.init();
+	// itemClient.addTodo();
 });

@@ -1,6 +1,9 @@
 const fs = require("fs");
 const { parse } = require("path");
 const { message } = require("statuses");
+const {
+	pokemonClient,
+} = require("/Users/User/monday-u-exercises/server/clients/pokemonClient");
 const express = require("express"),
 	axios = require("axios").default,
 	router = express.Router(),
@@ -22,29 +25,18 @@ router.post("/todo", async (req, res) => {
 			if (isNaN(searchNum)) {
 				data = await itemManager.addTodo(searchNum);
 			} else {
-				data = await getPokimonNum(searchNum);
+				data = await pokemonClient(searchNum);
 				data = "catch " + data;
 				data = await itemManager.addTodo(data);
 			}
 		}
 		if (data) {
-			return res.json({ sucsess: true });
+			return res.json(data);
 		}
 	} catch (error) {
 		return res.json({ sucsess: true });
 	}
 });
-
-async function getPokimonNum(id) {
-	try {
-		const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-		return res.data.name;
-	} catch (error) {
-		data = `Could not find Pokemon id: ${id}`;
-		data = await itemManager.addTodo(data);
-		return res.json({ sucsess: true });
-	}
-}
 
 router.delete("/todo/:id", async (req, res) => {
 	let todoId = Number.parseInt(req.params.id);
