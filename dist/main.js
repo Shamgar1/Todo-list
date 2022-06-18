@@ -1,9 +1,3 @@
-// import ItemClient from "./clients/item_client";
-// import addTodo from "./clients/item_client";
-// import renderItems from "./clients/item_client";
-// import deleteItem from "./clients/item_client";
-// import { ItemClient } from "itemClient";
-
 class Main {
 	constructor() {
 		this.itemClient = new ItemClient();
@@ -19,11 +13,8 @@ class Main {
 	handleItem = async () => {
 		let todoInput = document.getElementById("todo-input").value;
 		const item = await itemClient.addTodo(todoInput);
-		// return item;
-		// item = res.json();
-		// return res.json();
-		// const item = itemClient.addTodo(todoInput);
-		// console.log(todoInput);
+		location.reload();
+		return item;
 	};
 
 	renderItems = async () => {
@@ -41,24 +32,24 @@ class Main {
 			listItem.appendChild(listItemDeleteButton);
 			list.appendChild(listItem);
 		});
-		// list.addEventListener("click", function (e) {
-		// 	if (e.target.classList.contains("list-item")) {
-		// 		main.deleteItem(e.target.dataset.id);
-		// 	}
-		// });
+		list.addEventListener("click", function (e) {
+			if (e.target.classList.contains("list-item")) {
+				main.deleteItem(e.target.dataset);
+			}
+		});
 	};
 
-	// deleteItem = async (item) => {
-	// 	// console.log("hay");
-	// 	// const item = document.getElementById("li");
-	// 	const deleteItem = await deleteItem(item);
-	// 	// let itemId = document.getAttribute("data-id");
-	// 	// console.log("itemId");
-	// 	// console.log(item);
-	// 	// console.log(itemId);
-	// 	let elment = document.querySelectorAll(`[data-id="${itemId}"]`);
-	// 	elment.parentNode.removeChild(elment);
-	// };
+	deleteItem = async (item) => {
+		// console.log("hay");
+		// const item = document.getElementById("li");
+		const deleteItem = await itemClient.deleteItem(item);
+		// let itemId = document.getAttribute("data-id");
+		// console.log("itemId");
+		// console.log(item);
+		// console.log(itemId);
+		let elment = document.querySelectorAll(`[data-id="${itemId}"]`);
+		elment.parentNode.removeChild(elment);
+	};
 
 	_createDeleteButton = (item) => {
 		// let listItem = document.getElementById("li");
