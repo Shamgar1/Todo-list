@@ -21,18 +21,22 @@ body {
     border-radius: 5px;
     height: 600px flex;
     border: inherit;
+    justify-content: center;
+        align-items: center;
+        
 }
 
 header {
     font-size: 4px;
 }
 
-header,
 form {
     min-height: 20vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 h1 {
@@ -43,13 +47,15 @@ h1 {
 }
 
 #todo-input, #todo-button {
+position: relative;
+top: 50%;
+    left: 25%;
     padding: 8px;
-    font-size: 28px;
-    border: none;
-    background: #aa8e8d;
-    color: white;
-    border-radius: 10px 10px;
-    align-items: center;
+        font-size: 28px;
+        border: none;
+        background: #aa8e8d;
+        color: white;
+        border-radius: 10px 10px;
 }
 
 

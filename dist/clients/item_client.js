@@ -26,7 +26,8 @@ class ItemClient {
 			});
 	}
 
-	async deleteItem(itemId) {
+	async deleteItem(item) {
+		let itemId = item.id;
 		await fetch(`${this.API_BASE}/api/todo/${itemId}`, {
 			method: "DELETE",
 		});

@@ -42,13 +42,14 @@ class Main {
 	deleteItem = async (item) => {
 		// console.log("hay");
 		// const item = document.getElementById("li");
-		const deleteItem = await itemClient.deleteItem(item);
+		await itemClient.deleteItem(item);
+		location.reload();
 		// let itemId = document.getAttribute("data-id");
 		// console.log("itemId");
 		// console.log(item);
 		// console.log(itemId);
-		let elment = document.querySelectorAll(`[data-id="${itemId}"]`);
-		elment.parentNode.removeChild(elment);
+		// let elment = document.querySelectorAll(item);
+		// elment.parentNode.removeChild(elment);
 	};
 
 	_createDeleteButton = (item) => {
