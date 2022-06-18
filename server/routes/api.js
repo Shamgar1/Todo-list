@@ -19,7 +19,7 @@ router.post("/todo", async (req, res) => {
 		let { todoInput } = req.body;
 		let data = false;
 		let fetchPokemon = todoInput.split(",");
-		for (let i = 0; i < fetchPokemon.length; i++) {
+		for (let i = 1; i < fetchPokemon.length; i++) {
 			const searchNum = fetchPokemon[i];
 			if (!isNaN(searchNum)) {
 				// console.log(pokemonClient);

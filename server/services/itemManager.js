@@ -33,11 +33,11 @@ async function addTodo(title) {
 
 async function deleteTodo(id) {
 	let data = await getAll();
-	let index = data.findIndex((value) => value.id === id);
-	let deleteTodo = data[index];
-	data.splice(index, 1);
+	// let index = id
+	// let deleteTodo = data[index];
+	data.splice(id, 1);
 	await writeItemList(data);
-	return deleteTodo;
+	return id;
 }
 // let jsonData = JSON.parse(data);
 // jsonData.splice(0, 1);
