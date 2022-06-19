@@ -9,14 +9,6 @@ const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 let mysql = require("mysql2");
 
-let connection = mysql.createConnection({
-	username: "root",
-	password: "password",
-	database: "todo_db",
-	host: "127.0.0.1",
-	dialect: "mysql",
-});
-
 let sequelize;
 if (config.use_env_variable) {
 	sequelize = new Sequelize(process.env[config.use_env_variable], config);
@@ -29,12 +21,6 @@ if (config.use_env_variable) {
 	);
 }
 
-connection.connect(function (err) {
-	if (err) {
-		return console.error("error: " + err.message);
-	}
-	console.log("Connected!");
-});
 //   	const sql = "INSERT INTO Items (id, itemName)VALUES (@id, @itemName)";
 // 				config.query(sql, function (err, result) {
 //     if (err) throw err;

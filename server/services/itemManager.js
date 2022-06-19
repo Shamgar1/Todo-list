@@ -5,7 +5,8 @@ const { values } = require("sequelize/lib/operators");
 const { INSERT } = require("sequelize/lib/query-types");
 const PokemonClient = require("../clients/pokemonClient");
 
-const Items = require("../db/models");
+const Items = require("../db/models/items");
+const { findAll } = require("sequelize/lib/model");
 // const Items = require("../db/models");
 
 class ItemManager {
@@ -14,8 +15,10 @@ class ItemManager {
 		this.items = []; //TODO: remove, items should be stored to DB using Item sequelize model
 	}
 
-	getItems = async () => this.items;
-	// Items.findAll();
+	getItems = async () => {
+		let items = await Items.findAll();
+		return items;
+	};
 
 	handleItem = async (item) => {
 		if (this._isNumber(item)) {
@@ -30,11 +33,7 @@ class ItemManager {
 
 	addItem = async (itemName) => {
 		this.items.push(itemName);
-		let Items = sequelize.define("Items", {
-			description: Sequelize.STRING,
-		});
-
-		await pokemon.save();
+		return await Items.create({ itemName });
 	};
 
 	addPokemonItem = (pokemon) => {
@@ -64,6 +63,7 @@ class ItemManager {
 
 	deleteItem = (item) => {
 		this.items = this.items.filter((i) => i !== item);
+		Item.fi
 	};
 
 	_isNumber = (value) => !isNaN(Number(value));

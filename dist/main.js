@@ -16,11 +16,11 @@ class Main {
 
 		await this.itemClient.postItem(inputValue);
 		await this.renderItems();
-		input.value = "";
 	};
 
 	deleteItem = async (item) => {
 		await this.itemClient.deleteItem(item);
+
 		await this.renderItems();
 	};
 
@@ -33,11 +33,12 @@ class Main {
 		items.forEach((item) => {
 			const listItem = document.createElement("li");
 			listItem.classList.add("list-item");
-			listItem.innerHTML = item;
+			listItem.innerHTML = item.itemName;
 
 			const listItemDeleteButton = this._createDeleteButton(item);
-			listItem.appendChild(listItemDeleteButton);
+			// listItem.appendChild(listItemDeleteButton);
 			list.appendChild(listItem);
+			list.appendChild(listItemDeleteButton);
 		});
 	};
 
@@ -45,6 +46,7 @@ class Main {
 		const button = document.createElement("img");
 		button.src = "./images/delete_icon.svg";
 		button.classList.add("list-item-delete-button");
+		debugger;
 		button.addEventListener("click", (_) => this.deleteItem(item));
 
 		return button;

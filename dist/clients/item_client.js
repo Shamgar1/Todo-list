@@ -15,6 +15,7 @@ class ItemClient {
 	};
 
 	deleteItem = async (item) => {
+		debugger;
 		await fetch("/item", {
 			method: "DELETE",
 			headers: { "Content-Type": "application/json" },

@@ -3,8 +3,8 @@ const router = express.Router();
 const itemManager = require("../services/itemManager");
 // const database = 36ba6732755e7c97acb5c2baf4226750537be2125c72376282d148c2ebabeb7d
 
-router.get("/items", (_, res) => {
-	res.send(itemManager.getItems());
+router.get("/items", async (_, res) => {
+	res.json(await itemManager.getItems());
 });
 
 router.post("/item", async (req, res) => {
