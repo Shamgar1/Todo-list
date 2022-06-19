@@ -1,47 +1,73 @@
-const fs = require("fs");
+const { Sequelize } = require("sequelize");
+const { request } = require("express");
+const database = require("mime-db");
+const { values } = require("sequelize/lib/operators");
+const { INSERT } = require("sequelize/lib/query-types");
+const PokemonClient = require("../clients/pokemonClient");
 
-async function getAll() {
-	return readItemList();
-}
+const Items = require("../db/models");
+// const Items = require("../db/models");
 
-async function readItemList() {
-	try {
-		const data = await fs.readFileSync("./data/itemList.json");
-		console.log(data.toString());
-		return JSON.parse(data.toString());
-	} catch (error) {
-		console.error(`Got an error trying to read the file: ${error.message}`);
+class ItemManager {
+	constructor() {
+		this.pokemonClient = new PokemonClient();
+		this.items = []; //TODO: remove, items should be stored to DB using Item sequelize model
 	}
+
+	getItems = async () => this.items;
+	// Items.findAll();
+
+	handleItem = async (item) => {
+		if (this._isNumber(item)) {
+			return await this.fetchAndAddPokemon(item);
+		}
+		if (this._isList(item)) {
+			return await this.fetchAndAddManyPokemon(item);
+		}
+
+		this.addItem(item);
+	};
+
+	addItem = async (itemName) => {
+		this.items.push(itemName);
+		let Items = sequelize.define("Items", {
+			description: Sequelize.STRING,
+		});
+
+		await pokemon.save();
+	};
+
+	addPokemonItem = (pokemon) => {
+		this.addItem(`Catch ${pokemon.name}`);
+	};
+
+	fetchAndAddPokemon = async (pokemonId) => {
+		try {
+			const pokemon = await this.pokemonClient.getPokemon(pokemonId);
+			this.addPokemonItem(pokemon);
+		} catch (error) {
+			this.addItem(`Pokemon with ID ${pokemonId} was not found`);
+		}
+	};
+
+	fetchAndAddManyPokemon = async (inputValue) => {
+		try {
+			const pokemons = await this.pokemonClient.getManyPokemon(
+				inputValue.replace("/ /g", "").split(",")
+			);
+			pokemons.forEach(this.addPokemonItem);
+		} catch (error) {
+			console.error(error);
+			this.addItem(`Failed to fetch pokemon with this input: ${inputValue}`);
+		}
+	};
+
+	deleteItem = (item) => {
+		this.items = this.items.filter((i) => i !== item);
+	};
+
+	_isNumber = (value) => !isNaN(Number(value));
+	_isList = (value) => value.split(",").every(this._isNumber);
 }
 
-async function writeItemList(content) {
-	try {
-		await fs.writeFileSync("./data/itemList.json", JSON.stringify(content));
-	} catch (error) {
-		console.error(`Failed to write to file ${error.message}`);
-	}
-}
-
-async function addTodo(title) {
-	let data = fs.readFileSync("./data/itemList.json");
-	let jsonData = JSON.parse(data);
-	let newTodo = { name: title };
-	jsonData.push(newTodo);
-	fs.writeFileSync("./data/itemList.json", JSON.stringify(jsonData));
-	return newTodo;
-}
-
-async function deleteTodo(id) {
-	let data = await getAll();
-	// let index = id
-	// let deleteTodo = data[index];
-	data.splice(id, 1);
-	await writeItemList(data);
-	return id;
-}
-// let jsonData = JSON.parse(data);
-// jsonData.splice(0, 1);
-// fs.writeFileSync("./data/itemList.json", JSON.stringify(jsonData));
-// return true;
-
-module.exports = { getAll, addTodo, deleteTodo };
+module.exports = new ItemManager();

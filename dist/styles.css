@@ -46,7 +46,7 @@ h1 {
     font-weight: 900;
 }
 
-#todo-input, #todo-button {
+#list-item-input, #list-item-submit {
 position: relative;
 top: 50%;
     left: 25%;
@@ -59,7 +59,7 @@ top: 50%;
 }
 
 
-#todo-button {
+#list-item-submit {
     color: #aa8e8d;
     background: #6d335c;
     cursor: pointer;
@@ -100,7 +100,7 @@ top: 50%;
     color: #6d335c;
 }
 
-form button:hover {
+#list-item-submit:hover {
     background: #aa8e8d;
     color: #6d335c;
 }

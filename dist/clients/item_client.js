@@ -1,35 +1,24 @@
-// Create an ItemClient class here. This is what makes requests to your express server (your own custom API!)
 class ItemClient {
-	constructor() {
-		this.API_BASE = "http://localhost:3000";
-	}
+	getItems = async () => {
+		const response = await fetch("/items");
+		const todos = await response.json();
 
-	async renderItems() {
-		const url = `${this.API_BASE}/api/todo`;
-		const res = await fetch(url);
-		const data = await res.json();
-		return data;
-	}
+		return todos;
+	};
 
-	async addTodo(todoInput) {
-		await fetch(`${this.API_BASE}/api/todo`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
+	postItem = async (item) => {
+		await fetch("/item", {
 			method: "POST",
-			body: JSON.stringify({ todoInput }),
-		})
-			.then((res) => res.json())
-			.catch((error) => {
-				console.log(error);
-				return error;
-			});
-	}
-
-	async deleteItem(item) {
-		let itemId = item.id;
-		await fetch(`${this.API_BASE}/api/todo/${itemId}`, {
-			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ item }),
 		});
-	}
+	};
+
+	deleteItem = async (item) => {
+		await fetch("/item", {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ item }),
+		});
+	};
 }
