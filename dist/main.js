@@ -6,7 +6,6 @@ class Main {
 	init = async () => {
 		const addItemButton = document.getElementById("list-item-submit");
 		addItemButton.addEventListener("click", this.handleItem);
-
 		await this.renderItems();
 	};
 
@@ -20,6 +19,7 @@ class Main {
 
 	deleteItem = async (item) => {
 		await this.itemClient.deleteItem(item);
+		const items = await this.itemClient.getItems();
 
 		await this.renderItems();
 	};
@@ -36,9 +36,10 @@ class Main {
 			listItem.innerHTML = item.itemName;
 
 			const listItemDeleteButton = this._createDeleteButton(item);
-			// listItem.appendChild(listItemDeleteButton);
+			const listItemCompleteButton = this._createCompleteButton(item);
+			listItem.appendChild(listItemDeleteButton);
+			listItem.appendChild(listItemCompleteButton);
 			list.appendChild(listItem);
-			list.appendChild(listItemDeleteButton);
 		});
 	};
 
@@ -46,10 +47,23 @@ class Main {
 		const button = document.createElement("img");
 		button.src = "./images/delete_icon.svg";
 		button.classList.add("list-item-delete-button");
-		debugger;
 		button.addEventListener("click", (_) => this.deleteItem(item));
-
 		return button;
+	};
+
+	_createCompleteButton = (item) => {
+		const button = document.createElement("img");
+		button.src = "./images/complete_icon.svg";
+		button.classList.add("list-item-complete-button");
+		button.addEventListener("click", (_) => this.completeItem(item));
+		return button;
+	};
+
+	completeItem = async (item) => {
+		await this.itemClient.deleteItem(item);
+		const items = await this.itemClient.getItems();
+
+		await this.renderItems();
 	};
 }
 

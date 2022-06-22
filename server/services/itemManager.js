@@ -28,22 +28,25 @@ class ItemManager {
 			return await this.fetchAndAddManyPokemon(item);
 		}
 
-		this.addItem(item);
+		await this.addItem(item);
 	};
 
 	addItem = async (itemName) => {
 		this.items.push(itemName);
-		return await Items.create({ itemName });
+		Items.create({ itemName });
+		await this.getItems();
 	};
 
-	addPokemonItem = (pokemon) => {
-		this.addItem(`Catch ${pokemon.name}`);
+	addPokemonItem = async (pokemon) => {
+		await this.addItem(`Catch ${pokemon.name}`);
+		// this.getItems();
+		// this.getItems();
 	};
 
 	fetchAndAddPokemon = async (pokemonId) => {
 		try {
 			const pokemon = await this.pokemonClient.getPokemon(pokemonId);
-			this.addPokemonItem(pokemon);
+			await this.addPokemonItem(pokemon);
 		} catch (error) {
 			this.addItem(`Pokemon with ID ${pokemonId} was not found`);
 		}
@@ -54,16 +57,17 @@ class ItemManager {
 			const pokemons = await this.pokemonClient.getManyPokemon(
 				inputValue.replace("/ /g", "").split(",")
 			);
-			pokemons.forEach(this.addPokemonItem);
+			pokemons.forEach(await this.addPokemonItem());
 		} catch (error) {
 			console.error(error);
 			this.addItem(`Failed to fetch pokemon with this input: ${inputValue}`);
 		}
 	};
 
-	deleteItem = (item) => {
-		this.items = this.items.filter((i) => i !== item);
-		Item.fi
+	deleteItem = async (item) => {
+		// this.items = this.items.filter((i) => i !== item);
+		const row = await Items.destroy({ where: { id: item.id } });
+		return await this.getItems();
 	};
 
 	_isNumber = (value) => !isNaN(Number(value));

@@ -5,7 +5,7 @@
   "main": "C:/Users/User/monday-u-exercises/dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "set NODE_ENV=dev && node index.js"
+    "dev": "set NODE_ENV=dev && node server.js"
   },
   "repository": {
     "type": "git",

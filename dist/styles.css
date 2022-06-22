@@ -158,8 +158,7 @@ top: 50%;
 }
 
 .list-item-delete-button,
-.fa-check {
-    pointer-events: none;
+.list-item-complete-button {
     border-radius: 10px 10px;
 }
 

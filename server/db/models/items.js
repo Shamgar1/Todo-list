@@ -10,6 +10,7 @@ module.exports = sequelize.define("Item", {
 	id: {
 		primaryKey: true,
 		type: Sequelize.INTEGER,
+		autoIncrement: true,
 	},
 	itemName: Sequelize.STRING,
 });

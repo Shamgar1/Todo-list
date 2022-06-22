@@ -2,7 +2,6 @@ class ItemClient {
 	getItems = async () => {
 		const response = await fetch("/items");
 		const todos = await response.json();
-
 		return todos;
 	};
 
@@ -15,7 +14,6 @@ class ItemClient {
 	};
 
 	deleteItem = async (item) => {
-		debugger;
 		await fetch("/item", {
 			method: "DELETE",
 			headers: { "Content-Type": "application/json" },
