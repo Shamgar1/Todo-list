@@ -12,23 +12,22 @@
 
 <body>
     <div class="wrapper">
-    <header>
-        <h1>Ayelet's Todo List</h1>
-        
-    </header>
-    <form>
-        <input type="text" id="todo-input" placeholder="Add your new todo"/>
-        <button id="todo-button" type="submit">
-            <i class="fa fa-plus-square"></i>
-        </button>
-    </form>
-    <div class="todo-container">
-        <ul id="todo-list"></ul>
-    </div>
-    <button onclick="clearArray()" id="clear-button">Clear list</button>
-    <script src="listManager.js"></script>
-    <script src="pokemonClient.js"></script>
-    <script src="main.js"></script>
+        <header>
+            <h1>Ayelet's Todo List</h1>
+
+        </header>
+        <form>
+            <input type="text" id="list-item-input" placeholder="Add your new todo" />
+            <button id="list-item-submit" type="submit">
+                <i class="fa fa-plus-square"></i>
+            </button>
+        </form>
+        <div class="todo-container">
+            <ul id="list"></ul>
+        </div>
+        <!-- <button onclick="clearArray()" id="clear-button">Clear list</button> -->
+        <script src="./clients/item_client.js"></script>
+        <script src="./main.js"></script>
     </div>
 </body>
 
