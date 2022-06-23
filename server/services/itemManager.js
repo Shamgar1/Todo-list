@@ -8,11 +8,10 @@ const PokemonClient = require("../clients/pokemonClient");
 const Items = require("../db/models/items");
 const { findAll } = require("sequelize/lib/model");
 
-
 class ItemManager {
 	constructor() {
 		this.pokemonClient = new PokemonClient();
-		this.items = []; 
+		this.items = [];
 	}
 
 	getItems = async () => {
@@ -32,7 +31,7 @@ class ItemManager {
 
 	addItem = async (itemName) => {
 		this.items.push(itemName);
-		Items.create({ itemName });
+		await Items.create({ itemName });
 		await this.getItems();
 	};
 
