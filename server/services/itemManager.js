@@ -53,7 +53,7 @@ class ItemManager {
 			const pokemons = await this.pokemonClient.getManyPokemon(
 				inputValue.replace("/ /g", "").split(",")
 			);
-			pokemons.forEach(await this.addPokemonItem());
+			pokemons.forEach(await this.addPokemonItem);
 		} catch (error) {
 			console.error(error);
 			this.addItem(`Failed to fetch pokemon with this input: ${inputValue}`);
