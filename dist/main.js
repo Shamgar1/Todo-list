@@ -12,11 +12,8 @@ class Main {
 	handleItem = async () => {
 		const input = document.getElementById("list-item-input");
 		const inputValue = input.value;
-		console.log("maayan");
 		await this.itemClient.postItem(inputValue);
-		console.log("maayan1");
 		await this.renderItems();
-		console.log("maayan2");
 	};
 
 	deleteItem = async (item) => {
