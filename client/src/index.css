@@ -1,15 +1,15 @@
 body {
-    border-top: 5px solid #aa8e8d;
-    min-height: 100vh;
-    margin: 120px auto;
-      max-width: 800px;
-      width: 800%;
-      background: #4d244e;
-      border-radius: 5px;
-      height: 600px flex;
-      border: inherit;
-      justify-content: center;
-      align-items: center;
+  border-top: 5px solid #aa8e8d;
+  min-height: 100vh;
+  margin: 120px auto;
+  max-width: 800px;
+  width: 800%;
+  background: #4d244e;
+  border-radius: 5px;
+  height: 600px flex;
+  border: inherit;
+  justify-content: center;
+  align-items: center;
 }
 
 code {

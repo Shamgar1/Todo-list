@@ -11,7 +11,6 @@ console.log(`Your port is ${port}`);
 const main = async () => {
 	const app = express();
 
-	app.use(express.static(path.join(__dirname, "dist")));
 	app.use(
 		cors({
 			origin: "*",

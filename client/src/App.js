@@ -1,7 +1,4 @@
 import "./App.css";
-import React from "react";
-// import ReactDOM from "react-dom";
-import "./index.css";
 import TodoList from "./components/Todo-List/TodoList";
 
 function App() {

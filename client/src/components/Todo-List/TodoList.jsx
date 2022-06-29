@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Todo from "../Todo/Todo";
-import "./TodoList.scss";
+import "../Todo-List/TodoList.scss";
 
 const TodoList = () => {
 	let [value, setValue] = useState("");
@@ -14,9 +14,6 @@ const TodoList = () => {
 			setList(todos);
 		});
 	};
-
-	// Promise.all().then(responses => {
-	// // 		console.log(responses)}
 
 	const getItems = async () => {
 		const response = await fetch("http://localhost:3000/items");
@@ -51,12 +48,6 @@ const TodoList = () => {
 		});
 	};
 
-	// const handleClick = (e) => {
-	// 	postItem(value).then((res) => {
-	// 		getItemsFromServer();
-	// 	});
-	// };
-
 	const handleClick = async (e) => {
 		const response = await postItem(value);
 		console.log(response);
@@ -82,19 +73,6 @@ const TodoList = () => {
 			body: JSON.stringify({ item }),
 		});
 	};
-
-	// const postItem = async (item) => {
-	// 	let items = Array.from(value);
-	// 	Promise.all(
-	// 		items.map((i) => {
-	// 			fetch("http://localhost:3000/item", {
-	// 				method: "POST",
-	// 				headers: { "Content-Type": "application/json" },
-	// 				body: JSON.stringify({ i }),
-	// 			});
-	// 		})
-	// 	).then((res) => getItemsFromServer());
-	// };
 
 	return (
 		<div>
