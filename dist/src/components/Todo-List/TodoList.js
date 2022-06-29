@@ -34,33 +34,33 @@ const TodoList = () => {
 		});
 	};
 
-	const handleCheckClicked = (id, completed) => {
-		const isDone = !{ completed };
-		console.log("hay");
-		postIsCompleted({ id, isDone }).then(() => {
+	const handleCheckClicked = (id, statusItem) => {
+		console.log(statusItem);
+		const isDone = ({ statusItem } = true);
+		console.log(isDone);
+		postIsCompleted(id, isDone).then(() => {
 			getItemsFromServer();
 		});
 	};
 
-	const postIsCompleted = async (id, isCompletedValue) => {
-		await fetch(`http://localhost:3000/items/${id}`, {
+	const postIsCompleted = async (id, isDone) => {
+		await fetch(`http://localhost:3000/item/${id}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ isCompletedValue }),
+			body: JSON.stringify({ id, isDone }),
 		});
 	};
 
 	// const handleClick = (e) => {
-	// 	postItem(value);
-	// 	Promise.all(value).then(() => {
+	// 	postItem(value).then((res) => {
 	// 		getItemsFromServer();
 	// 	});
 	// };
 
-	const handleClick = (e) => {
-		postItem(value).then(() => {
-			getItemsFromServer();
-		});
+	const handleClick = async (e) => {
+		const response = await postItem(value);
+		console.log(response);
+		const newItem = getItemsFromServer();
 	};
 
 	const handleTextChange = (e) => {
@@ -115,7 +115,7 @@ const TodoList = () => {
 					<Todo
 						itemName={item.itemName}
 						itemId={item.id}
-						completed={item.status}
+						statusItem={item.status}
 						handleDelete={handleTrashClicked}
 						handleCheck={handleCheckClicked}
 					/>

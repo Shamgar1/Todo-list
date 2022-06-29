@@ -12,10 +12,7 @@ router.post("/item", async (req, res) => {
 });
 
 router.post("/item/:id", async (req, res) => {
-	const item = await itemManager.completeItem(
-		req.params.id,
-		req.body.isCompletedValue
-	);
+	const item = await itemManager.completeItem(req.params.id, req.body.isDone);
 	res.json(item);
 });
 

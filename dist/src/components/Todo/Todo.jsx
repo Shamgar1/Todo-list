@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 function Todo(props) {
-	const { itemName, handleDelete, itemId, handleCheck, completed } = props;
+	const { itemName, handleDelete, itemId, handleCheck, status } = props;
 	return (
 		<li class="li">
 			{itemName}
@@ -26,7 +26,7 @@ function Todo(props) {
 				</svg>
 			</button>
 			<div className="completeButton">
-				<input type="checkbox" onClick={() => handleCheck(completed)} />
+				<input type="checkbox" onClick={() => handleCheck(itemId, status)} />
 			</div>
 		</li>
 	);
@@ -34,6 +34,12 @@ function Todo(props) {
 
 Todo.propTypes = {
 	name: PropTypes.string,
+	id: PropTypes.number,
+	status: PropTypes.bool,
+};
+
+Todo.defaultProps = {
+	status: false,
 };
 
 export default Todo;
