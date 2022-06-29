@@ -1,12 +1,12 @@
 class ItemClient {
 	getItems = async () => {
-		const response = await fetch("/items");
+		const response = await fetch("http://localhost:3000/items");
 		const todos = await response.json();
 		return todos;
 	};
 
 	postItem = async (item) => {
-		await fetch("/item", {
+		await fetch("http://localhost:3000/item", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
@@ -14,7 +14,7 @@ class ItemClient {
 	};
 
 	postIsCompleted = async (id, isCompletedValue) => {
-		await fetch(`/item/${id}`, {
+		await fetch(`http://localhost:3000/items/${id}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ isCompletedValue }),
@@ -22,7 +22,7 @@ class ItemClient {
 	};
 
 	deleteItem = async (item) => {
-		await fetch("/item", {
+		await fetch("http://localhost:3000/item", {
 			method: "DELETE",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),

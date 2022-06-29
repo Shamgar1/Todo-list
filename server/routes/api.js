@@ -19,8 +19,8 @@ router.post("/item/:id", async (req, res) => {
 	res.json(item);
 });
 
-router.delete("/item", (req, res) => {
-	itemManager.deleteItem(req.body.item);
+router.delete("/item", async (req, res) => {
+	await itemManager.deleteItem(req.body.item);
 	res.end();
 });
 
