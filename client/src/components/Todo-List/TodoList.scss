@@ -35,8 +35,12 @@ h1 {
     background-color: pink;
     cursor: pointer;
 }
+ul{
+    padding: 0;
+}
 
 .li{
+    padding-left: 5px;
     position: relative;
     margin-left: 4px;
         background: #aa8e8d;
@@ -47,6 +51,19 @@ h1 {
         transition: all 0.5s ease;
         color: aliceblue;
         border-radius: 10px 10px;
+        padding: 5px;
+            margin-bottom: 5px;
+            >div{
+                width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    span{
+                        line-height: 42px;
+                    }
+            }
+        >div>div{
+            display: flex;
+        }
 }
 
 .li:hover, .deleteButton:hover {
@@ -57,27 +74,38 @@ h1 {
 .deleteButton {
     background: #6d335c;
     color: aliceblue;
-    padding: 1rem;
     border-radius: 10px 10px;
     margin-right: auto;
     display: inline-table;
     margin-right: 5px;
     border: none;
+    width: 48px;
+    height: 48px;
+    
 }
-
-
-// #checkbox {
-//     display: none;
-// }
 
 .completeButton {
     background: #6d335c;
-    color: aliceblue;
-    padding: 1rem;
+    color: #6d335c;
     border-radius: 10px 10px;
     margin-right: auto;
     display: inline-table;
     margin-right: 5px;
     border: none;
+        width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    input[type="checkbox"]{
+            accent-color: #6d335c;
+            background: #6d335c;
+            
+            -ms-transform: scale(2);
+
+                transform: scale(2);
+                accent-color: #6d335c;
+                padding: 10px;
+    }
 }
 

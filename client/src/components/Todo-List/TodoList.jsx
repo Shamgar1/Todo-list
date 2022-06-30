@@ -78,25 +78,27 @@ const TodoList = () => {
 		<div>
 			<form onSubmit={handleSubmit}>
 				<input
-					class="todoInput"
+					className="todoInput"
 					type="text"
 					value={value}
 					onChange={handleTextChange}
 					placeholder="Enter new to do"
 				/>
-				<button onClick={handleClick} class="submitButton" type="submit">
+				<button onClick={handleClick} className="submitButton" type="submit">
 					+{" "}
 				</button>
 			</form>
 			<ul>
-				{list.map((item) => (
-					<Todo
-						itemName={item.itemName}
-						itemId={item.id}
-						statusItem={item.status}
-						handleDelete={handleTrashClicked}
-						handleCheck={handleCheckClicked}
-					/>
+				{list.map((item, key) => (
+					<li className="li" key={key}>
+						<Todo
+							itemName={item.itemName}
+							itemId={item.id}
+							statusItem={item.status}
+							handleDelete={handleTrashClicked}
+							handleCheck={handleCheckClicked}
+						/>
+					</li>
 				))}
 			</ul>
 		</div>
