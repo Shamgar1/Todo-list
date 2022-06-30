@@ -9,8 +9,8 @@ const TodoList = () => {
 		getItemsFromServer();
 	}, []);
 
-	const getItemsFromServer = () => {
-		getItems().then((todos) => {
+	const getItemsFromServer = async () => {
+		await getItems().then((todos) => {
 			setList(todos);
 		});
 	};
@@ -32,9 +32,7 @@ const TodoList = () => {
 	};
 
 	const handleCheckClicked = (id, statusItem) => {
-		console.log(statusItem);
 		const isDone = ({ statusItem } = true);
-		console.log(isDone);
 		postIsCompleted(id, isDone).then(() => {
 			getItemsFromServer();
 		});
@@ -51,8 +49,15 @@ const TodoList = () => {
 	const handleClick = async (e) => {
 		const response = await postItem(value);
 		console.log(response);
-		const newItem = getItemsFromServer();
+		const newItem = await getItemsFromServer();
+		setValue("");
 	};
+
+	// const getItemsFromServer = async () => {
+	// 	await getItems().then((todos) => {
+	// 		setList(todos);
+	// 	});
+	// };
 
 	const handleTextChange = (e) => {
 		setValue(e.target.value);
