@@ -13,6 +13,14 @@ class ItemClient {
 		});
 	};
 
+	postIsCompleted = async (id, isCompletedValue) => {
+		await fetch(`/item/${id}`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ isCompletedValue }),
+		});
+	};
+
 	deleteItem = async (item) => {
 		await fetch("/item", {
 			method: "DELETE",

@@ -1,4 +1,4 @@
-* {
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -73,29 +73,12 @@ top: 50%;
     align-items: center;
 }
 
-#clear-button {
-    color: #aa8e8d;
-    background: #6d335c;
-    cursor: pointer;
-    border-radius: 10px 10px;
-    height: 30px;
-    width: 15%;
-    max-width: 400px;
-    margin: 200px;
-    font-size: 20px;
-}
-
-#clear-button:hover {
-    background: #aa8e8d;
-    color: #6d335c;
-}
-
 .list-item-delete-button:hover {
     background: #aa8e8d;
     color: #6d335c;
 }
 
-.complete-btn:hover {
+.list-item-complete-button:hover {
     background: #aa8e8d;
     color: #6d335c;
 }
@@ -135,19 +118,9 @@ top: 50%;
 
 .list-item li{
     flex: 1;
-    display: list-item;
+    /* display: list-item; */
     border-radius: 10px 10px;
-}
-
-
-.list-item-delete-button{
-    background: #6d335c;
-    color: aliceblue;
-    border: none;
-    padding: 1rem;
-    cursor: pointer;
-    font-size: 1rem;
-    border-radius: 10px 10px;
+    display: inline-block;
 }
 
 .todo-item {
@@ -157,10 +130,28 @@ top: 50%;
     padding: 1rem;
 }
 
-.list-item-delete-button,
-.list-item-complete-button {
+.list-item-delete-button {
+background: #6d335c;
+    color: aliceblue;
+    padding: 1rem;
     border-radius: 10px 10px;
+    margin-right: auto;
+    display: inline-table;
+    margin-right: 5px;
 }
+
+.list-item-complete-button {
+background: #6d335c;
+    color: aliceblue;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 10px 10px; 
+    display: inline-table;
+    margin-right: auto;
+    
+} 
 
 .completed {
     text-decoration: line-through;
@@ -170,4 +161,5 @@ top: 50%;
 .fall {
     transform: translateY(10rem) rotateZ(20deg);
     opacity: o;
-}
+} 
+

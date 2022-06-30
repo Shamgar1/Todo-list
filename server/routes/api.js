@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const itemManager = require("../services/itemManager");
-// const database = 36ba6732755e7c97acb5c2baf4226750537be2125c72376282d148c2ebabeb7d
 
 router.get("/items", async (_, res) => {
 	res.json(await itemManager.getItems());
@@ -12,14 +11,17 @@ router.post("/item", async (req, res) => {
 	res.end();
 });
 
+router.post("/item/:id", async (req, res) => {
+	const item = await itemManager.completeItem(
+		req.params.id,
+		req.body.isCompletedValue
+	);
+	res.json(item);
+});
+
 router.delete("/item", (req, res) => {
 	itemManager.deleteItem(req.body.item);
 	res.end();
 });
-
-// res.set({
-// 	"Content-Type": "application/json",
-// 	"Access-Control-Allow-Origin": "*",
-// });
 
 module.exports = router;

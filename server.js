@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 const dotenv = require("dotenv").config();
 const api = require("./server/routes/api");
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 console.log(`Your port is ${port}`);
 
 const main = async () => {
@@ -16,8 +16,6 @@ const main = async () => {
 	app.use(bodyParser.urlencoded({ extended: false }));
 
 	app.use("/", api);
-
-	
 
 	// const port = process.env.PORT || "3000";
 	app.listen(port, function () {
