@@ -1,55 +1,91 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Todo from "../Todo/Todo";
 import "../Todo-List/TodoList.scss";
+import ListApiService from "../../services/list-api-service";
+import { useDispatch } from "react-redux";
+import addTodo from "../../actions/add-todo-action";
+import getAllTodos from "../../actions/get-all-todos-action";
+import deleteTodo from "../../actions/get-all-todos-action";
 
 const TodoList = () => {
+	const dispatch = useDispatch();
 	let [value, setValue] = useState("");
+	let [search, setSearch] = useState("");
 	let [list, setList] = useState([]);
+	// let [foundTodos, setFoundTodos] = useState(list);
+	// const [searchParam] = useState(["itemName"]);
 	useEffect(() => {
-		getItemsFromServer();
-	}, []);
-
-	const getItemsFromServer = async () => {
-		await getItems().then((todos) => {
+		ListApiService.getItems().then((todos) => {
 			setList(todos);
 		});
-	};
+		// dispatch(getAllTodos());
+		// getItemsFromServer();
+		// setList(todos);
+	}, []);
 
-	const getItems = async () => {
-		const response = await fetch("http://localhost:3000/items");
-		const todos = await response.json();
-		return todos;
-	};
+	// const getItemsFromServer = async () => {
+	// 	await dispatch(getAllTodos()).then((todos) => {
+	// 		console.log(todos);
+	// 		setList(todos);
+	// 	});
+	// 	// setList(todos);
+	// };
+
+	// const getItemsFromServer = useCallback(() => {
+	// 	dispatch(getAllTodos()).then((todos) => {
+	// 		console.log(todos);
+	// 		setList(todos);
+	// 	});
+	// }, [setList]);
+
+	// const todos = useCallback(() => {
+	// 	getAllTodos(todos);
+	// }, [getAllTodos, todos]);
+	// useEffect(() => {
+	// 	// dispatch(getAllTodos());
+	// 	getItemsFromServer();
+	// }, []);
+
+	// const getItemsFromServer = useCallback(
+	// 	(data) => {
+	// 		setList(data);
+	// 	},
+	// 	[setList]
+	// );
+	// 	await getItems().then((todos) => {
+	// 		setList(todos);
+	// 	});
+	// };
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 	};
 
-	const handleTrashClicked = (id) => {
-		deleteItem({ id }).then(() => {
-			getItemsFromServer();
+	const handleTrashClicked = async (id) => {
+		await dispatch(deleteTodo(id)).then(() => {
+			// getItemsFromServer();
 		});
 	};
 
 	const handleCheckClicked = (id, statusItem) => {
 		const isDone = ({ statusItem } = true);
-		postIsCompleted(id, isDone).then(() => {
-			getItemsFromServer();
+		ListApiService.postIsCompleted(id, isDone).then(() => {
+			// getItemsFromServer();
 		});
 	};
 
-	const postIsCompleted = async (id, isDone) => {
-		await fetch(`http://localhost:3000/item/${id}`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ id, isDone }),
-		});
-	};
+	// const postIsCompleted = async (id, isDone) => {
+	// 	await fetch(`http://localhost:3000/item/${id}`, {
+	// 		method: "POST",
+	// 		headers: { "Content-Type": "application/json" },
+	// 		body: JSON.stringify({ id, isDone }),
+	// 	});
+	// };
 
 	const handleClick = async (e) => {
-		const response = await postItem(value);
-		console.log(response);
-		const newItem = await getItemsFromServer();
+		// const response = await ListApiService.postItem(value);
+		dispatch(addTodo(value));
+		// await getItemsFromServer();
 		setValue("");
 	};
 
@@ -63,24 +99,44 @@ const TodoList = () => {
 		setValue(e.target.value);
 	};
 
-	const deleteItem = async (item) => {
-		await fetch("http://localhost:3000/item", {
-			method: "DELETE",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ item }),
-		});
-	};
+	// const deleteItem = async (item) => {
+	// 	await fetch("http://localhost:3000/item", {
+	// 		method: "DELETE",
+	// 		headers: { "Content-Type": "application/json" },
+	// 		body: JSON.stringify({ item }),
+	// 	});
+	// };
 
-	const postItem = async (item) => {
-		await fetch("http://localhost:3000/item", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ item }),
-		});
-	};
+	const filter = (e) => {
+		const keyword = e.target.value;
 
+		if (keyword !== "") {
+			const results = list.filter((item) => {
+				return item.itemName.toLowerCase().startsWith(keyword.toLowerCase());
+				// Use the toLowerCase() method to make it case-insensitive
+			});
+			setList(results);
+		} else {
+			setList(list);
+			// If the text field is empty, show all users
+		}
+
+		setSearch(keyword);
+	};
 	return (
 		<div>
+			<div className="search-wrapper">
+				<label htmlFor="search-form">
+					<input
+						type="search"
+						value={search}
+						onChange={filter}
+						className="searchInput"
+						placeholder="Filter"
+					/>
+					<span className="sr-only">Search todo here</span>
+				</label>
+			</div>
 			<form onSubmit={handleSubmit}>
 				<input
 					className="todoInput"
@@ -94,17 +150,21 @@ const TodoList = () => {
 				</button>
 			</form>
 			<ul>
-				{list.map((item, key) => (
-					<li className="li" key={key}>
-						<Todo
-							itemName={item.itemName}
-							itemId={item.id}
-							statusItem={item.status}
-							handleDelete={handleTrashClicked}
-							handleCheck={handleCheckClicked}
-						/>
-					</li>
-				))}
+				{list && list.length > 0 ? (
+					list.map((item, key) => (
+						<li className="li" key={key}>
+							<Todo
+								itemName={item.itemName}
+								itemId={item.id}
+								statusItem={item.status}
+								handleDelete={handleTrashClicked}
+								handleCheck={handleCheckClicked}
+							/>
+						</li>
+					))
+				) : (
+					<h1>No results found!</h1>
+				)}
 			</ul>
 		</div>
 	);

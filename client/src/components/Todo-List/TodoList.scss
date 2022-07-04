@@ -109,3 +109,19 @@ ul{
     }
 }
 
+
+.searchInput{
+    position: relative;
+        padding: 8px;
+        font-size: 14px;
+        border: none;
+        background: #aa8e8d;
+        color: white;
+        border-radius: 10px 10px;
+        font-family: "Poppins",
+            sans-serif;
+}
+
+.sr-only{
+    font-size: 14px;
+}

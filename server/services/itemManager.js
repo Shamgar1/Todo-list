@@ -36,13 +36,13 @@ class ItemManager {
 		if (this._isList(item)) {
 			return await this.fetchAndAddManyPokemon(item);
 		}
-		await this.addItem(item);
+		return await this.addItem(item);
 	};
 
 	addItem = async (itemName) => {
 		this.items.push(itemName);
 		await Items.create({ itemName });
-		await this.getItems();
+		return { itemName };
 	};
 
 	addPokemonItem = async (pokemon) => {
