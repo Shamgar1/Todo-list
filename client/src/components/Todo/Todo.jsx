@@ -10,7 +10,7 @@ function Todo(props) {
 				<button
 					className="deleteButton"
 					type="button"
-					onClick={() => handleDelete(itemId)}
+					onClick={() => handleDelete(itemName)}
 				>
 					<svg
 						width="35"
@@ -28,7 +28,10 @@ function Todo(props) {
 					</svg>
 				</button>
 				<div className="completeButton">
-					<input type="checkbox" onClick={() => handleCheck(itemId, status)} />
+					<input
+						type="checkbox"
+						onClick={() => handleCheck(itemName, status)}
+					/>
 				</div>
 			</div>
 		</div>

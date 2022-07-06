@@ -48,12 +48,13 @@ export default class ListApiService {
 	 * @returns {Promise<boolean>}
 	 */
 	static async deleteItem(item) {
-		const response = await fetch("/item", {
+		debugger;
+		const response = await fetch("http://localhost:3000/item", {
 			method: "DELETE",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
-
+		debugger;
 		return response.ok;
 	}
 }

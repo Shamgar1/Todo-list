@@ -5,6 +5,8 @@ import {
 	ADD_TODO_SUCESS,
 	ADD_TODO_REQUEST,
 	ADD_TODO_FAILURE,
+	DELETE_TODO_REQUEST,
+	DELETE_TODO_SUCESS,
 } from "../actions/constants/index";
 
 const initialState = {
@@ -51,8 +53,8 @@ const itemsEntitiesReducer = (state = initialState, action) => {
 			return {
 				...state,
 				// itemName: [action.payload],
-				loading: true,
-				error: true,
+				loading: false,
+				error: false,
 			};
 		}
 		// case ADD_TODO_FAILURE: {
@@ -61,12 +63,22 @@ const itemsEntitiesReducer = (state = initialState, action) => {
 		// 		itemName: [action.payload],
 		// 	};
 		// }
-		// case actionTypes.DELETE_TODO: {
-		// 	return {
-		// 		...state,
-		// 		itemName: [action.payload],
-		// 	};
-		// }
+		case DELETE_TODO_REQUEST: {
+			return {
+				...state,
+				//data: {...state.data, isLoading:true, isError: false}
+				loading: true,
+				error: false,
+			};
+		}
+		case DELETE_TODO_SUCESS: {
+			return {
+				...state,
+				// todos: true,
+				loading: false,
+				error: false,
+			};
+		}
 		default:
 			return state;
 	}
