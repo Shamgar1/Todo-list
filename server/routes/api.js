@@ -7,8 +7,8 @@ router.get("/items", async (_, res) => {
 });
 
 router.post("/item", async (req, res) => {
-	const item = await itemManager.handleItem(req.body.item);
-	res.json(item);
+	await itemManager.handleItem(req.body.item);
+	res.status(200).json();
 });
 
 router.post("/item/:id", async (req, res) => {

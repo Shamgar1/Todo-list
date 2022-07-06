@@ -16,15 +16,15 @@ export default class ListApiService {
 	 * @returns {Promise<object>}
 	 */
 	static async postItem(itemName) {
+		debugger;
+		console.log(itemName);
 		const response = await fetch("http://localhost:3000/item", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item: itemName }),
 		});
-
-		const item = await response.json();
-
-		return item;
+		console.log(response);
+		return response;
 	}
 
 	/**

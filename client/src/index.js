@@ -6,9 +6,9 @@ import App from "./App";
 // import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
-// import { allReducers } from "../../client/src/reducers/index";
+// import { allReducers } from "../../client/src/reducers/items-entities-reducer";
 
-// store.dispatch(allReducers);
+// store.dispatch(itemsEntitiesReducer);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
