@@ -1,84 +1,53 @@
 import {
 	GET_TODO_REQUEST,
-	GET_TODO_SUCESS,
-	GET_TODO_FAILURE,
-	ADD_TODO_SUCESS,
 	ADD_TODO_REQUEST,
-	ADD_TODO_FAILURE,
 	DELETE_TODO_REQUEST,
-	DELETE_TODO_SUCESS,
-} from "../actions/constants/index";
+	TOGGLE_TODO_REQUEST,
+} from "../actions/index";
 
 const initialState = {
-	loading: false,
+	isLoading: false,
 	todos: [],
-	error: "",
+	error: false,
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
-	debugger;
-	// const { type, payload } = action;
-	switch (action.type) {
-		// switch (type) {
+	const { type, payload } = action;
+	switch (type) {
 		case GET_TODO_REQUEST:
 			return {
 				...state,
-				loading: true,
+				isLoading: false,
+				error: false,
 			};
 
-		case GET_TODO_SUCESS:
-			return {
-				loading: false,
-				todos: action.payload,
-				error: "",
-				// },
-			};
-
-		case GET_TODO_FAILURE:
-			return {
-				...state,
-				// data:{...state.data, isLoading: false, isError:payload}
-				loading: false,
-				error: true,
-			};
-
+		////// adding reducer
 		case ADD_TODO_REQUEST: {
 			return {
 				...state,
-				loading: false,
+				isLoading: true,
 				error: false,
 			};
 		}
-		case ADD_TODO_SUCESS: {
-			return {
-				...state,
-				// itemName: [action.payload],
-				loading: false,
-				error: false,
-			};
-		}
-		// case ADD_TODO_FAILURE: {
-		// 	return {
-		// 		...state,
-		// 		itemName: [action.payload],
-		// 	};
-		// }
+
+		//////deleting reducer
 		case DELETE_TODO_REQUEST: {
 			return {
 				...state,
-				//data: {...state.data, isLoading:true, isError: false}
-				loading: true,
+				isLoading: true,
 				error: false,
 			};
 		}
-		case DELETE_TODO_SUCESS: {
+
+		//////// update check
+
+		case TOGGLE_TODO_REQUEST:
 			return {
 				...state,
-				// todos: true,
-				loading: false,
+				isLoading: true,
 				error: false,
 			};
-		}
+
 		default:
 			return state;
 	}

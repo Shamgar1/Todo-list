@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // gap: var(--spacing-small);
+    font-family: "Poppins", sans-serif;
+    list-style-type: none;
+    margin: 2px;
+    
+
+    .list {
+        height: 700px;
+        width: 100%;
+        background-color: rgb(255, 255, 255);
+        font-family: "Poppins", sans-serif;
+        border-radius: 10px 10px;
+        margin: 2px;
+    }
+
+    .li {
+        list-style-type: none;
+        margin: none;
+}
+        // .li {
+        //     padding-left: 5px;
+        //     position: relative;
+        //     margin-left: 4px;
+        //     background: #aa8e8d;
+        //     font-size: 24px;
+        //     display: flex;
+        //     justify-content: space-between;
+        //     align-items: center;
+        //     transition: all 0.5s ease;
+        //     color: aliceblue;
+        //     border-radius: 10px 10px;
+        //     padding: 5px;
+        //     margin-bottom: 5px;
+    
+        //     >div {
+        //         width: 100%;
+        //         display: flex;
+        //         justify-content: space-between;
+    
+        //         span {
+        //             line-height: 42px;
+        //         }
+        //     }
+    
+        //     >div>div {
+        //         display: flex;
+        //     }
+        // }
+    
+        // .li:hover,
+        // .deleteButton:hover {
+        //     background: #aa8e8d;
+        //     color: #6d335c;
+        // }
+}

@@ -16,14 +16,12 @@ export default class ListApiService {
 	 * @returns {Promise<object>}
 	 */
 	static async postItem(itemName) {
-		debugger;
-		console.log(itemName);
 		const response = await fetch("http://localhost:3000/item", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item: itemName }),
 		});
-		console.log(response);
+
 		return response;
 	}
 
@@ -33,12 +31,14 @@ export default class ListApiService {
 	 * @returns {Promise<boolean>}
 	 */
 	static async toggleDone(item) {
-		const response = await fetch(`/item/${item.id}`, {
+		debugger;
+		const response = await fetch(`http://localhost:3000/item/${item.id}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
-
+		debugger;
+		console.log(response);
 		return response.ok;
 	}
 
@@ -48,13 +48,11 @@ export default class ListApiService {
 	 * @returns {Promise<boolean>}
 	 */
 	static async deleteItem(item) {
-		debugger;
 		const response = await fetch("http://localhost:3000/item", {
 			method: "DELETE",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
-		debugger;
 		return response.ok;
 	}
 }

@@ -1,0 +1,59 @@
+.container {
+    background-color: var(--color-snow_white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-right-radius: var(--spacing-small);
+        border-top-left-radius: var(--spacing-small);
+        gap: var(--spacing-small);
+        margin-bottom: 2px;
+        padding: 8px;
+
+
+        .searchButton {
+padding: 8px;
+font-family: "Poppins", sans-serif;
+height: 30px;
+    width: 500px;
+    border-radius: 10px 10px;
+        }
+
+    .button {
+        background: #6d335c;
+        color: #aa8e8d;
+        position: relative;
+        padding: 8px;
+
+        border: none;
+        background: #aa8e8d;
+        color: white;
+        border-radius: 10px 10px;
+
+        &:hover {
+            background-color: var(--color-ui_grey);
+            transition: color 0.2s ease-in-out;
+        }
+
+    }
+
+    .svg {
+        height: 30px;
+        width: 500px;
+    }
+
+
+    .input {
+        font-family: "Poppins", sans-serif;
+        height: 30px;
+        width: 500px;
+        padding: 8px;
+        font-size: 20px;
+       
+
+
+    }
+
+          .input[type="search" i] {
+font-family: "Poppins", sans-serif;
+        }
+}

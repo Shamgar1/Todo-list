@@ -83,8 +83,11 @@ class ItemManager {
 	_isNumber = (value) => !isNaN(Number(value));
 	_isList = (value) => value.split(",").every(this._isNumber);
 
-	completeItem = async (id, status) => {
-		return await Items.update({ status }, { where: { id } });
+	completeItem = async (item) => {
+		return await Items.update(
+			{ status: item.status },
+			{ where: { id: item.id } }
+		);
 	};
 }
 module.exports = new ItemManager();
