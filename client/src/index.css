@@ -1,0 +1,31 @@
+body {
+  border-top: 5px solid #aa8e8d;
+  min-height: 100vh;
+  margin: 120px auto;
+  max-width: 800px;
+  width: 800%;
+  background: #4d244e;
+  border-radius: 5px;
+  height: 600px flex;
+  border: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#container {
+  margin: 120px auto;
+  max-width: 800px;
+  width: 800%;
+  background: rgb(230, 230, 230);
+  border-radius: 5px;
+  height: 600px flex;
+  border: inherit;
+  justify-content: center;
+  align-items: center;
+
+}

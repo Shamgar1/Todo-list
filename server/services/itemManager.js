@@ -1,7 +1,6 @@
 const { Sequelize } = require("sequelize");
 const { request } = require("express");
 const database = require("mime-db");
-const { values } = require("sequelize/lib/operators");
 const { INSERT } = require("sequelize/lib/query-types");
 const PokemonClient = require("../clients/pokemonClient");
 
@@ -19,20 +18,31 @@ class ItemManager {
 		return items;
 	};
 
+	// getItems = async () => {
+	// 	const items = await Items.findAll();
+	// 	return items.map((item) => {
+	// 		return {
+	// 			id: item.id,
+	// 			name: item.itemName,
+	// 			status: item.status,
+	// 		};
+	// 	});
+	// };
+
 	handleItem = async (item) => {
 		if (this._isNumber(item)) {
-			await this.fetchAndAddPokemon(item);
-		} else if (this._isList(item)) {
-			await this.fetchAndAddManyPokemon(item);
-		} else {
-			await this.addItem(item);
+			return await this.fetchAndAddPokemon(item);
 		}
+		if (this._isList(item)) {
+			return await this.fetchAndAddManyPokemon(item);
+		}
+		return await this.addItem(item);
 	};
 
 	addItem = async (itemName) => {
 		this.items.push(itemName);
 		await Items.create({ itemName });
-		await this.getItems();
+		return { itemName };
 	};
 
 	addPokemonItem = async (pokemon) => {
@@ -42,9 +52,9 @@ class ItemManager {
 	fetchAndAddPokemon = async (pokemonId) => {
 		try {
 			const pokemon = await this.pokemonClient.getPokemon(pokemonId);
-			await this.addPokemonItem(pokemon);
+			this.addPokemonItem(pokemon);
 		} catch (error) {
-			this.addItem(`Pokemon with ID ${pokemonId} was not found`);
+			await this.addItem(`Pokemon with ID ${pokemonId} was not found`);
 		}
 	};
 
@@ -53,7 +63,12 @@ class ItemManager {
 			const pokemons = await this.pokemonClient.getManyPokemon(
 				inputValue.replace("/ /g", "").split(",")
 			);
-			pokemons.forEach(await this.addPokemonItem);
+			const pokemonsPromises = pokemons.map(async (newItem) => {
+				const newPokemon = await this.addPokemonItem(newItem);
+				return newPokemon;
+			});
+			const newPokemons = await Promise.all(pokemonsPromises);
+			console.log(newPokemons);
 		} catch (error) {
 			console.error(error);
 			this.addItem(`Failed to fetch pokemon with this input: ${inputValue}`);
