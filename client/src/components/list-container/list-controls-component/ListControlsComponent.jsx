@@ -5,12 +5,7 @@ import Add from "monday-ui-react-core/dist/icons/Add";
 import PropTypes from "prop-types";
 import ListApiService from "../../../services/list-api-service";
 import { addTodoSucess } from "../../../actions/add-todo-action";
-// import {
-// 	addTodoRequest,
-// 	addTodoSucess,
-// } from "../../../actions/add-todo-action";
 import styles from "./ListControlsComponent.module.scss";
-// import { store } from "../../../store";
 
 function ListControlsComponent({ onChange, addTodoSucess, addItemNew }) {
 	const [isLoading, setIsLoading] = useState(false);
@@ -21,16 +16,13 @@ function ListControlsComponent({ onChange, addTodoSucess, addItemNew }) {
 	}, []);
 
 	const addItem = useCallback(async () => {
+		setName("");
 		setIsLoading(true);
-		// store.dispatch(addTodoRequest());
 		await ListApiService.postItem(name)
 			.then((res) => res.json())
 			.then((name) => {
 				addTodoSucess(name);
-
-				debugger;
 				onChange(addItemNew);
-				console.log(addItemNew);
 				setIsLoading(false);
 			});
 	}, [name]);

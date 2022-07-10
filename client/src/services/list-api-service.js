@@ -21,8 +21,7 @@ export default class ListApiService {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item: itemName }),
 		});
-		console.log(response);
-		debugger;
+
 		return response;
 	}
 
@@ -38,13 +37,7 @@ export default class ListApiService {
 			body: JSON.stringify({ item }),
 		});
 		const todos = await response.json();
-		console.log(todos);
-		debugger;
-
 		return todos;
-
-		// debugger;
-		// return response;
 	}
 
 	/**

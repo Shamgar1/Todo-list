@@ -7,10 +7,7 @@ padding: var(--spacing-small);
     align-items: center;
     justify-content: center;
     border-radius: 10px 10px;
-    
-  
-    // justify-content: space-between;
-    //     row-gap: 5px;
+    margin-bottom: 0px;
     
 .deleteButton {
         height: 30px;
@@ -33,7 +30,7 @@ padding: var(--spacing-small);
 
     .text {
         flex-grow: 1;
-        padding-left: var(--spacing-small);
+        padding-left: 10px;
         user-select: none;
         background: #aa8e8d;
         border-radius: 5px 5px;
@@ -42,21 +39,19 @@ padding: var(--spacing-small);
         font-size: 20px;
         list-style-type: none;
         align-items: center;
+        
     }
-
-    
-
     
     .checkbox {
         accent-color: #6d335c;
         
         align-items: center;
-        // box-sizing: content-box;
+       
         height: 25px;
             width: 18px;
-            // margin: 6px 6px 6px 6px;
+       
                 display: table;
-        // color: "var(--color-lipstick)"
+        
 
         li{
             height: 25px;
@@ -69,67 +64,5 @@ padding: var(--spacing-small);
     }
     }
 
-    // padding: var(--spacing-small);
-    // height: 30px;
-    // cursor: pointer;
-    // display: flex;
-    // flex-direction: row;
-    // align-items: center;
-    // justify-content: center;
-    // box-sizing: border-box;
-    // // padding-left: 5px;
-    // // padding-left: 5px;
-    //     position: relative;
-    //     margin-left: 4px;
-    //   
-    //     padding: var(--spacing-xs);
-    //     font-size: 24px;
-    //     display: flex;
-    //     justify-content: space-between;
-    //     align-items: center;
-    //     transition: all 0.5s ease;
-    //     color: aliceblue;
-    //     border-radius: 10px 10px;
-    //     padding: 5px;
-    //     margin-bottom: 5px;
-    
-       
-    //         width: 100%;
-    //         display: flex;
-    //         justify-content: space-between;
-    
-    //         // span {
-    //         //     line-height: 42px;
-    //         // }
-
-
-    // &:hover {
-    //     color: var();
-    //     transition: color 0.2s ease-in-out;
-    // }
-
-    // &:not(:last-of-type) {
-    //     border-bottom: 1px var(--color-ui_grey) solid;
-    // }
-
-    // .deleteButton {
-    //     background: #6d335c;
-    //         color: aliceblue;
-    //         border-radius: 10px 10px;
-    //         margin-right: 100px;
-    //         display: inline-table;
-    //         margin-right: 5px;
-    //         border: none;
-    //         width: 48px;
-    //         height: 48px;
-    //     // height: 24px;
-    //     // width: 24px;
-    //     // padding: var(--spacing-xs);
-
-    //     svg {
-    //         height: 100%;
-    //     }
-    // }
- 
 }
 

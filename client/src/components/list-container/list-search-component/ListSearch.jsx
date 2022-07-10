@@ -28,7 +28,6 @@ export function ListSearch({
 		<div className={styles.container}>
 			<Search
 				placeholder={placeholder}
-				// type="text"
 				value={value}
 				onChange={handleSearch}
 				onClick={clearInput}

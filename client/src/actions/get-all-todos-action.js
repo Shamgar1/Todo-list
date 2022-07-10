@@ -7,7 +7,6 @@ const get = (todos) => ({
 });
 
 export const getTodoSucess = (todos) => {
-	debugger;
 	return (dispatch) => {
 		dispatch(get(todos));
 	};

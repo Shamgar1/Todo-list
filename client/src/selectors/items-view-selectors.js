@@ -11,3 +11,8 @@ export const getSearchItemsOnlySearched = createSelector(
 		return [...todos].sort();
 	}
 );
+
+// export const selectTotalCompletedTodos = (state) => {
+// 	const completedTodos = state.todos.filter((item) => item.status);
+// 	return completedTodos.length;
+// };
