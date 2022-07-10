@@ -4,15 +4,15 @@ import Button from "monday-ui-react-core/dist/Button";
 import Add from "monday-ui-react-core/dist/icons/Add";
 import PropTypes from "prop-types";
 import ListApiService from "../../../services/list-api-service";
-// import { addTodoSucess } from "../../../actions/add-todo-action";
-import {
-	addTodoRequest,
-	addTodoSucess,
-} from "../../../actions/add-todo-action";
+import { addTodoSucess } from "../../../actions/add-todo-action";
+// import {
+// 	addTodoRequest,
+// 	addTodoSucess,
+// } from "../../../actions/add-todo-action";
 import styles from "./ListControlsComponent.module.scss";
-import { store } from "../../../store";
+// import { store } from "../../../store";
 
-function ListControlsComponent({ onChange }) {
+function ListControlsComponent({ onChange, addTodoSucess, addItemNew }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [name, setName] = useState("");
 
@@ -22,11 +22,17 @@ function ListControlsComponent({ onChange }) {
 
 	const addItem = useCallback(async () => {
 		setIsLoading(true);
-		store.dispatch(addTodoRequest());
-		await ListApiService.postItem(name);
-		store.dispatch(addTodoSucess({ payload: name, isLoading }));
-		onChange(name);
-		setIsLoading(false);
+		// store.dispatch(addTodoRequest());
+		await ListApiService.postItem(name)
+			.then((res) => res.json())
+			.then((name) => {
+				addTodoSucess(name);
+
+				debugger;
+				onChange(addItemNew);
+				console.log(addItemNew);
+				setIsLoading(false);
+			});
 	}, [name]);
 
 	const handleEnterPressed = useCallback(

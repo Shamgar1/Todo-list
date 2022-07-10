@@ -8,17 +8,18 @@ router.get("/items", async (_, res) => {
 
 router.post("/item", async (req, res) => {
 	await itemManager.handleItem(req.body.item);
-	res.status(200).json();
+	res.json(await itemManager.getItems());
 });
 
 router.post("/item/:id", async (req, res) => {
 	await itemManager.completeItem(req.body.item);
-	res.status(200).json();
+	res.json(await itemManager.getItems());
+	// res.json(pokemons);
 });
 
 router.delete("/item", async (req, res) => {
-	await itemManager.deleteItem(req.body.item);
-	res.end();
+	let newList = await itemManager.deleteItem(req.body.item);
+	res.json(newList);
 });
 
 module.exports = router;

@@ -1,38 +1,26 @@
 import React, { useCallback, useState } from "react";
-// import {Field, reduxForm}  from 'redux-form';
+
 import { Search } from "monday-ui-react-core";
 import styles from "../list-search-component/ListSearch.module.scss";
-// import SearchIcon from "@material-ui/icons/Search";
-// import CloseIcon from "@material-ui/icons/Close";
-import { store } from "../../../store";
-import {
-	searchSucsess,
-	searchRequest,
-	esearchFailure,
-} from "../../../actions/search-items-action";
+import PropTypes from "prop-types";
 
-export function ListSearch({ placeholder, data, handleFilter }) {
-	const [filteredData, setFilteredData] = useState([]);
+export function ListSearch({
+	placeholder,
+	onChange,
+	searchedItems,
+	searchSucsess,
+}) {
+	const [isLoading, setIsLoading] = useState(false);
 	const [value, setValue] = useState("");
 
 	const handleSearch = useCallback(async (value) => {
-		// const searchWord = event.target.value;
-
 		setValue(value);
-		handleFilter(value);
-		console.log(filteredData);
-
-		debugger;
-
-		// 	if (value === "") {
-		// 		setFilteredData([]);
-		// 	} else {
-		// 		setFilteredData(newFilter);
-		// 	}
+		searchSucsess(value);
+		onChange(searchedItems);
+		setIsLoading(false);
 	}, []);
 
 	const clearInput = () => {
-		setFilteredData([]);
 		setValue("");
 	};
 
@@ -46,33 +34,9 @@ export function ListSearch({ placeholder, data, handleFilter }) {
 				onClick={clearInput}
 				className={styles.searchButton}
 			></Search>
-
-			{/* <div className="searchIcon">
-				{filteredData.length === 0 ? (
-					<SearchIcon />
-				) : (
-					<CloseIcon id="clearBtn" onClick={clearInput} />
-				)}
-			</div> */}
-			{filteredData.length != 0 && (
-				<div className="dataResult">
-					{filteredData.slice(0, 15).map((value, key) => {
-						return (
-							<a className="dataItem" href={value.link} target="_blank">
-								<p>{value.title} </p>
-							</a>
-						);
-					})}
-				</div>
-			)}
 		</div>
 	);
 }
-
-{
-	/* // ListSearch = reduxForm({
-	form: "ListSearch",
-})(ListSearch); */
-}
-
-// export default ListSearch;
+ListSearch.propTypes = {
+	onChange: PropTypes.func,
+};

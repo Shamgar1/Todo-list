@@ -1,26 +1,40 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { List, Search, Loader } from "monday-ui-react-core";
+import { List, ButtonGroup, Search, Loader } from "monday-ui-react-core";
 import ListApiService from "../../services/list-api-service";
 import ListControlsComponent from "./list-controls-component/ListControlsComponent";
 import ListItemComponent from "./list-item-component/ListItemComponent";
 import { allReducers } from "../../reducers/index";
+// import {
+// 	getSearchItemsOnlySearched,
+// 	getItemsView,
+// } from "../../selectors/items-view-selectors";
 import styles from "./ListContainer.module.scss";
-import {
-	getTodoSucess,
-	getTodoRequest,
-	getTodoFailure,
-} from "../../actions/get-all-todos-action";
-import {
-	searchSucsess,
-	searchRequest,
-	esearchFailure,
-} from "../../actions/search-items-action";
+// import {
+// 	getTodoSucess,
+// 	getTodoRequest,
+// 	getTodoFailure,
+// } from "../../actions/get-all-todos-action";
+// import {
+// 	searchSucsess,
+// 	searchRequest,
+// 	esearchFailure,
+// } from "../../actions/search-items-action";
 import { connect } from "react-redux";
 import { dispatch } from "react";
 import { store } from "../../store";
 import { ListSearch } from "./list-search-component/ListSearch";
+import ListControlComponentConnector from "./list-controls-component/list-control-component-connector";
+import ListItemComponentConnector from "./list-item-component/List-item-component-connector";
+import ListSearchConnector from "./list-search-component/List-search-connector";
 
-function ListContainer({ itemData }) {
+function ListContainer({
+	itemData,
+	searchedItems,
+	getTodoSucess,
+	// searchSucsess,
+	// updatedItems,
+	// searchedItems,
+}) {
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [shouldRefetchItems, setRefetchItems] = useState(false);
@@ -30,17 +44,26 @@ function ListContainer({ itemData }) {
 	// const [inputText, setInputText] = useState("");
 	// const [name, setName] = useState("");
 
+	// const getTodo = useCallback(
+	// 	(res) => {
+	// 		debugger;
+	// 		console.log(res);
+	// 		getTodoSucess(res);
+	// 	},
+	// 	[getTodoSucess]
+	// );
+
 	const fetchItems = async () => {
 		try {
-			store.dispatch(getTodoRequest());
-			ListApiService.getItems().then((fetchedItems) => {
-				store.dispatch(getTodoSucess({ todos: fetchedItems, isLoading }));
+			// store.dispatch(getTodoRequest());
+			ListApiService.getItems().then((res) => {
+				getTodoSucess(res);
 				setIsLoading(false);
 				setRefetchItems(false);
-				setItems(fetchedItems);
+				setItems(itemData);
 			});
 		} catch (err) {
-			store.dispatch(getTodoFailure(err));
+			// store.dispatch(getTodoFailure(err));
 			setIsLoading(true);
 		}
 	};
@@ -53,13 +76,22 @@ function ListContainer({ itemData }) {
 		if (shouldRefetchItems) fetchItems();
 	}, [shouldRefetchItems]);
 
-	const onChangeInItems = useCallback(() => {
-		setRefetchItems(true);
+	const onChangeInItems = useCallback((addItemNew) => {
+		setItems(addItemNew);
+		setRefetchItems(false);
+	}, []);
+	const onDeleteOrToggle = useCallback((updatedItems) => {
+		setItems(updatedItems);
+		setRefetchItems(false);
+	}, []);
+	const onSearch = useCallback((searchedItems) => {
+		setItems(searchedItems);
+		setRefetchItems(false);
 	}, []);
 
-	useEffect(() => {
-		fetchItems();
-	}, []);
+	// useEffect(() => {
+	// 	handleFilter();
+	// }, []);
 
 	// const handleSearch = (e) => {
 	// 	setValue(e.target.value);
@@ -69,91 +101,98 @@ function ListContainer({ itemData }) {
 	// 	debugger;
 	// 	store.dispatch(searchSucsess({ payload: fetchedItems, isLoading }));
 
-	const handleFilter = (value) => {
-		// debugger;
-		// const searchWord = event.target.value;
-		let x = store.dispatch(searchSucsess({ payload: value }));
-		// console.log(store.getState().itemsView.todos);
-		console.log(store.getState());
-		debugger;
-		setItems(store.getState().itemsView.todos.todos);
-
-		// setValue(event.target.value);
-		// debugger;
-		// store.dispatch(searchRequest());
-		// debugger;
-		// store.dispatch(searchSucsess({ payload: value }));
-
-		// const newFilter = list.filter((value) => {
-		// 	return value.title.toLowerCase().includes(value.toLowerCase());
-		// });
-
-		// if (value === "") {
-		// 	setList([]);
-		// } else {
-		// 	setList(newFilter);
-		// }
+	const showAllCompleted = () => {
+		console.log(1);
+		showAllCompleted();
+	};
+	const showOnlyCompleted = () => {
+		showAllCompleted();
+	};
+	const showNotCompleted = () => {
+		showNotCompleted();
 	};
 
 	const itemsList = useMemo(() => {
-		console.log(itemData);
 		debugger;
-		return itemData.isLoading ? (
-			<h2>Loading</h2>
-		) : itemData.error ? (
-			<h2>{itemData.error}</h2>
-		) : (
-			itemData &&
-			itemData.todos &&
-			itemData.todos.map((todo, key) => (
-				<li className="li" key={key}>
-					<ListItemComponent
-						key={todo.id}
-						id={todo.id}
-						name={todo.itemName}
-						status={!!todo.status}
-						onChange={onChangeInItems}
-					/>
-				</li>
-			))
-		);
+		return itemData.todos.map((todo, key) => (
+			<li className="li" key={key}>
+				<ListItemComponentConnector
+					key={todo.id}
+					id={todo.id}
+					name={todo.itemName}
+					status={!!todo.status}
+					onChange={onDeleteOrToggle}
+					// onClick={onDeleteOrToggle}
+				/>
+			</li>
+		));
 	}, [items]);
 
 	if (isLoading || shouldRefetchItems) return <Loader size={40} />;
 
 	return (
 		<div className={styles.container}>
-			{/* <Search
-				placeholder="Placeholder text here"
-				// wrapperClassName="monday-storybook-search_size"
-				onChange={handleSearch}
-				// value={target.value}
-				value={value}
-				// onKeyDown={handleEnterPressed}
-			/> */}
-			{/* <ListSearch input={inputText} /> */}
-			<ListControlsComponent onChange={onChangeInItems} />
-			<ListSearch
+			<ListControlComponentConnector onChange={onChangeInItems} />
+			<ListSearchConnector
 				placeholder="Enter a Todo name"
-				handleFilter={handleFilter}
+				// handleFilter={onSearchInItems}
+				onChange={onSearch}
 				value={value}
 			/>
+			<ButtonGroup
+				className={styles.ButtonGroup}
+				size={ButtonGroup.sizes.MEDIUM}
+				onSelect={function noRefCheck() {
+					// if ((value = 1)) {
+					// 	console.log(1);
+					// }
+					// if ((value = 2)) {
+					// 	console.log(2);
+					// } else {
+					// 	console.log(3);
+					// }
+				}}
+				options={[
+					{
+						text: "Show All Todos",
+						value: 1,
+						onSelect: { showAllCompleted },
+						onClick: { showAllCompleted },
+					},
+					{
+						text: "Completed",
+						value: 2,
+						onClick: { showOnlyCompleted },
+					},
+					{
+						text: "Not Completed",
+						value: 3,
+						onClick: { showNotCompleted },
+					},
+				]}
+				value={1}
+			/>
+
 			<List className={styles.list}>{itemsList}</List>
 		</div>
 	);
 }
 
-const mapStateToProps = (state) => {
-	return {
-		itemData: state.itemsView,
-	};
-};
+// const mapStateToProps = (state, ownProps) => {
+// 	const searchedItems = getSearchItemsOnlySearched();
+// 	const itemData = getItemsView();
+// 	return {
+// 		itemData,
+// 		searchedItems,
+// 	};
+// };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getTodoSucess: () => dispatch(getTodoSucess()),
-	};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ListContainer);
+// const mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		getTodoSucess: () => dispatch(getTodoSucess()),
+// 		searchSucsess: () => dispatch(searchSucsess()),
+// 	};
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(ListContainer);
 
-// export default ListContainer;
+export default ListContainer;

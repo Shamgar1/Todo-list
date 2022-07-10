@@ -21,7 +21,8 @@ export default class ListApiService {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item: itemName }),
 		});
-
+		console.log(response);
+		debugger;
 		return response;
 	}
 
@@ -31,15 +32,19 @@ export default class ListApiService {
 	 * @returns {Promise<boolean>}
 	 */
 	static async toggleDone(item) {
-		debugger;
 		const response = await fetch(`http://localhost:3000/item/${item.id}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
+		const todos = await response.json();
+		console.log(todos);
 		debugger;
-		console.log(response);
-		return response.ok;
+
+		return todos;
+
+		// debugger;
+		// return response;
 	}
 
 	/**
@@ -53,6 +58,6 @@ export default class ListApiService {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
-		return response.ok;
+		return response;
 	}
 }

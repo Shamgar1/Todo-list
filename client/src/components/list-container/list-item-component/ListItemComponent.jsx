@@ -4,46 +4,65 @@ import { Checkbox, Loader, Button } from "monday-ui-react-core";
 import Delete from "monday-ui-react-core/dist/icons/Delete";
 import ListApiService from "../../../services/list-api-service";
 import styles from "./ListItemComponent.module.scss";
-import {
-	deleteTodoSucess,
-	deleteTodoRequest,
-} from "../../../actions/delete-todo-action";
-import {
-	toggleTodoRequest,
-	toggleTodoSucess,
-	toggleTodoFailure,
-} from "../../../actions/toggle-todo-action";
-import { store } from "../../../store";
+// import {
+// 	deleteTodoSucess,
+// 	deleteTodoRequest,
+// } from "../../../actions/delete-todo-action";
+// import {
+// 	toggleTodoRequest,
+// 	toggleTodoSucess,
+// 	toggleTodoFailure,
+// } from "../../../actions/toggle-todo-action";
+// import { store } from "../../../store";
 
-function ListItemComponent({ name, id, status, onChange }) {
+function ListItemComponent({
+	name,
+	id,
+	status,
+	onChange,
+	// onClick,
+	toggleTodoSucess,
+	deleteTodoSucess,
+	updatedItems,
+	// onClick,
+	// deleteNew,
+}) {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const onToggleItem = useCallback(async () => {
 		const checked = !status;
 		const item = { name, id, status: checked };
 		try {
-			store.dispatch(toggleTodoRequest());
-			await ListApiService.toggleDone(item);
-			store.dispatch(toggleTodoSucess(item));
-			debugger;
-			setIsLoading(false);
-			onChange(item);
+			await ListApiService.toggleDone(item)
+				// .then((res) => res.json())
+				.then((todos) => {
+					debugger;
+					toggleTodoSucess(todos);
+					debugger;
+
+					setIsLoading(false);
+					onChange(updatedItems);
+				});
 		} catch (err) {
-			store.dispatch(toggleTodoFailure(err));
+			// (toggleTodoFailure(err));
 			setIsLoading(true);
 		}
 	}, [status]);
 
 	const onDeleteItem = useCallback(async () => {
 		const item = { name, id, status };
-		setIsLoading(true);
-		store.dispatch(deleteTodoRequest());
-		await ListApiService.deleteItem(item);
-		store.dispatch(deleteTodoSucess({ id }));
-		console.log(store.dispatch(deleteTodoSucess({ id })));
-		debugger;
-		setIsLoading(false);
-		onChange(item);
+		await ListApiService.deleteItem(item)
+			.then((res) => res.json())
+			.then((list) => {
+				debugger;
+				deleteTodoSucess(list);
+				// console.log(store.dispatch(deleteTodoSucess({ id })));
+				debugger;
+
+				onChange(updatedItems);
+				setIsLoading(false);
+				// onClick(list);
+			});
 	}, []);
 
 	if (isLoading) {
@@ -70,6 +89,8 @@ function ListItemComponent({ name, id, status, onChange }) {
 				kind={Button.kinds.TERTIARY}
 				className={styles.deleteButton}
 				onClick={onDeleteItem}
+				// onChange={onDeleteItem}
+				// onChange={onToggleItem}
 			/>
 		</div>
 	);
@@ -80,6 +101,7 @@ ListItemComponent.propTypes = {
 	id: PropTypes.number,
 	status: PropTypes.bool,
 	onChange: PropTypes.func,
+	// onClick: PropTypes.func,
 };
 
 ListItemComponent.defaultProps = {

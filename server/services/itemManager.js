@@ -46,13 +46,13 @@ class ItemManager {
 	};
 
 	addPokemonItem = async (pokemon) => {
-		await this.addItem(`Catch ${pokemon.name}`);
+		return await this.addItem(`Catch ${pokemon.name}`);
 	};
 
 	fetchAndAddPokemon = async (pokemonId) => {
 		try {
 			const pokemon = await this.pokemonClient.getPokemon(pokemonId);
-			this.addPokemonItem(pokemon);
+			return await this.addPokemonItem(pokemon);
 		} catch (error) {
 			await this.addItem(`Pokemon with ID ${pokemonId} was not found`);
 		}
@@ -84,10 +84,9 @@ class ItemManager {
 	_isList = (value) => value.split(",").every(this._isNumber);
 
 	completeItem = async (item) => {
-		return await Items.update(
-			{ status: item.status },
-			{ where: { id: item.id } }
-		);
+		await Items.update({ status: item.status }, { where: { id: item.id } });
+		// let newUpdated = await this.getItems();
+		// return newUpdated;
 	};
 }
 module.exports = new ItemManager();
