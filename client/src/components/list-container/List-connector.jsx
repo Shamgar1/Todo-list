@@ -2,24 +2,28 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ListContainer from "./ListContainer";
 import {
-	getSearchItemsOnlySearched,
 	getItemsView,
+	getIsLoading,
+	getError,
 } from "../../selectors/items-view-selectors";
-import { getTodoSucess } from "../../actions/get-all-todos-action";
-import { searchSucsess } from "../../actions/search-items-action";
+import {
+	getItemsEntities,
+	getTodos,
+} from "../../selectors/items-entities-selectors";
+import { getTodo } from "../../actions/get-all-todos-action";
 
 const mapStateToProps = (state, ownProps) => {
-	const itemData = getItemsView(state);
-
+	const todos = getTodos(state);
+	const isLoading = getIsLoading(state);
+	const isError = getError(state);
 	return {
-		itemData,
+		todos,
+		isLoading,
+		isError,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators(
-		{ getTodoSucess, searchSucsess, getTodoSucess },
-		dispatch
-	);
+	return bindActionCreators({ getTodo }, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ListContainer);

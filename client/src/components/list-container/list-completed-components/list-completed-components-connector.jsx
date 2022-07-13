@@ -4,7 +4,7 @@ import {
 	onlyCompletedItems,
 	notCompletedItems,
 } from "../../../actions/show-completed-items-action";
-import { getTodoSucess } from "../../../actions/get-all-todos-action";
+import { getTodo } from "../../../actions/get-all-todos-action";
 import ListCompletetdComponents from "./ListCompletetdComponents";
 import { getItemsView } from "../../../selectors/items-view-selectors";
 
@@ -20,7 +20,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators(
-		{ onlyCompletedItems, getTodoSucess, notCompletedItems },
+		{
+			onlyCompletedItems,
+			notCompletedItems,
+			getTodo,
+		},
 		dispatch
 	);
 };

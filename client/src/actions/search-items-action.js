@@ -1,18 +1,25 @@
-
-
 import actionsTypes from "./index";
 
-const search = (todos) => ({
+const searchRequest = () => ({
+	type: actionsTypes.SEARCH_REQUEST,
+});
+const searchSucsess = (todos) => ({
 	type: actionsTypes.SEARCH_SUCESS,
 	todos,
 });
 
+const searchFailure = (error) => ({
+	type: actionsTypes.SEARCH_FAILURE,
+	error,
+});
 
-export const searchSucsess = (todos) => {
-	
+export const searchTodo = (item) => {
 	return (dispatch) => {
-		dispatch(search(todos));
+		try {
+			dispatch(searchRequest());
+			dispatch(searchSucsess(item));
+		} catch (error) {
+			dispatch(searchFailure(error));
+		}
 	};
-
 };
-

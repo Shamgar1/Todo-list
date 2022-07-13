@@ -4,11 +4,10 @@ import Button from "monday-ui-react-core/dist/Button";
 import Add from "monday-ui-react-core/dist/icons/Add";
 import PropTypes from "prop-types";
 import ListApiService from "../../../services/list-api-service";
-import { addTodoSucess } from "../../../actions/add-todo-action";
+import { addAnotherItem } from "../../../actions/add-todo-action";
 import styles from "./ListControlsComponent.module.scss";
 
-function ListControlsComponent({ onChange, addTodoSucess, addItemNew }) {
-	const [isLoading, setIsLoading] = useState(false);
+function ListControlsComponent({ addAnotherItem, addItemNew }) {
 	const [name, setName] = useState("");
 
 	const onInputChange = useCallback((value) => {
@@ -17,14 +16,8 @@ function ListControlsComponent({ onChange, addTodoSucess, addItemNew }) {
 
 	const addItem = useCallback(async () => {
 		setName("");
-		setIsLoading(true);
-		await ListApiService.postItem(name)
-			.then((res) => res.json())
-			.then((name) => {
-				addTodoSucess(name);
-				onChange(addItemNew);
-				setIsLoading(false);
-			});
+		addAnotherItem(name);
+		// onChange(addItemNew);
 	}, [name]);
 
 	const handleEnterPressed = useCallback(
@@ -46,19 +39,9 @@ function ListControlsComponent({ onChange, addTodoSucess, addItemNew }) {
 				onChange={onInputChange}
 				onKeyDown={handleEnterPressed}
 			/>
-			<Button
-				rightIcon={Add}
-				isDisabled={isLoading}
-				isLoading={isLoading}
-				onClick={addItem}
-				className={styles.addButton}
-			/>
+			<Button rightIcon={Add} onClick={addItem} className={styles.addButton} />
 		</div>
 	);
 }
-
-ListControlsComponent.propTypes = {
-	onChange: PropTypes.func,
-};
 
 export default ListControlsComponent;

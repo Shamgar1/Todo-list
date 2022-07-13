@@ -1,38 +1,28 @@
 import actionsTypes from "./index";
+import ListApiService from "../services/list-api-service";
 
-const toggle = (todos) => ({
+const toggleTodoRequest = () => ({
+	type: actionsTypes.TOGGLE_TODO_REQUEST,
+});
+const toggleTodoSucess = (todos) => ({
 	type: actionsTypes.TOGGLE_TODO_SUCESS,
 	todos,
 });
 
-export const toggleTodoSucess = (todos) => {
+const toggleTodoFailure = (error) => ({
+	type: actionsTypes.TOGGLE_TODO_FAILURE,
+	error,
+});
+
+export const updateStatus = (item) => {
 	return (dispatch) => {
-		dispatch(toggle(todos));
+		try {
+			dispatch(toggleTodoRequest());
+			ListApiService.toggleDone(item).then((todos) => {
+				dispatch(toggleTodoSucess(todos));
+			});
+		} catch (error) {
+			dispatch(toggleTodoFailure(error));
+		}
 	};
 };
-
-// import {
-// 	TOGGLE_TODO_REQUEST,
-// 	TOGGLE_TODO_SUCESS,
-// 	TOGGLE_TODO_FAILURE,
-// } from "./index";
-
-// export const toggleTodoRequest = () => {
-// 	return {
-// 		type: TOGGLE_TODO_REQUEST,
-// 	};
-// };
-
-// export const toggleTodoSucess = (payload) => {
-// 	return {
-// 		type: TOGGLE_TODO_SUCESS,
-// 		payload,
-// 	};
-// };
-
-// export const toggleTodoFailure = (error) => {
-// 	return {
-// 		type: TOGGLE_TODO_FAILURE,
-// 		payload: error,
-// 	};
-// };

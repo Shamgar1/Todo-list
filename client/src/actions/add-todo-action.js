@@ -1,29 +1,31 @@
-// import {
-// 	ADD_TODO_SUCESS,
-// 	ADD_TODO_REQUEST,
-// 	ADD_TODO_FAILURE,
-// } from "./index";
-
 import actionsTypes from "./index";
-const add = (todos) => ({
+import ListApiService from "../services/list-api-service";
+
+const addTodoRequest = () => ({
+	type: actionsTypes.ADD_TODO_REQUEST,
+});
+
+const addTodoSucess = (todos) => ({
 	type: actionsTypes.ADD_TODO_SUCESS,
 	todos,
 });
-// export const addTodoRequest = () => ({
-// 	type: actionsTypes.ADD_TODO_REQUEST,
-// });
 
-export const addTodoSucess = (todos) => {
+const addTodoFailure = (error) => ({
+	type: actionsTypes.ADD_TODO_FAILURE,
+	error,
+});
+
+export const addAnotherItem = (name) => {
 	return (dispatch) => {
-		dispatch(add(todos));
+		try {
+			dispatch(addTodoRequest());
+			ListApiService.postItem(name)
+				.then((res) => res.json())
+				.then((name) => {
+					dispatch(addTodoSucess(name));
+				});
+		} catch (error) {
+			dispatch(addTodoFailure(error));
+		}
 	};
-	// type: actionsTypes.ADD_TODO_SUCESS,
-	// payload,
 };
-
-// export const addTodoFailure = (error) => {
-// 	return {
-// 		type: ADD_TODO_FAILURE,
-// 		payload: error,
-// 	};
-// };

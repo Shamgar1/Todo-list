@@ -4,50 +4,26 @@ import { Checkbox, Loader, Button } from "monday-ui-react-core";
 import Delete from "monday-ui-react-core/dist/icons/Delete";
 import ListApiService from "../../../services/list-api-service";
 import styles from "./ListItemComponent.module.scss";
+import { updateStatus } from "../../../actions/toggle-todo-action";
+import { deleteTodo } from "../../../actions/delete-todo-action";
 
 function ListItemComponent({
 	name,
 	id,
 	status,
-	onChange,
-	toggleTodoSucess,
-	deleteTodoSucess,
-	updatedItems,
+	updateStatus,
+	deleteTodo,
 }) {
-	const [isLoading, setIsLoading] = useState(false);
-
 	const onToggleItem = useCallback(async () => {
 		const checked = !status;
 		const item = { name, id, status: checked };
-		try {
-			await ListApiService.toggleDone(item).then((todos) => {
-				toggleTodoSucess(todos);
-				setIsLoading(false);
-				onChange(updatedItems);
-			});
-		} catch (err) {
-			setIsLoading(true);
-		}
+		updateStatus(item);
 	}, [status]);
 
 	const onDeleteItem = useCallback(async () => {
 		const item = { name, id, status };
-		await ListApiService.deleteItem(item)
-			.then((res) => res.json())
-			.then((list) => {
-				deleteTodoSucess(list);
-				onChange(updatedItems);
-				setIsLoading(false);
-			});
+		deleteTodo(item);
 	}, []);
-
-	if (isLoading) {
-		return (
-			<div className={styles.container} key={id}>
-				<Loader size={40} />
-			</div>
-		);
-	}
 
 	return (
 		<div className={styles.container} key={id}>

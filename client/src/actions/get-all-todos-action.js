@@ -1,39 +1,29 @@
 // import { GET_TODO_REQUEST, GET_TODO_SUCESS, GET_TODO_FAILURE } from "./index";
 import actionsTypes from "./index";
+import ListApiService from "../services/list-api-service";
 
-const get = (todos) => ({
+const getTodoRequest = () => ({
+	type: actionsTypes.GET_TODO_REQUEST,
+});
+const getTodoSucess = (todos) => ({
 	type: actionsTypes.GET_TODO_SUCESS,
 	todos,
 });
 
-export const getTodoSucess = (todos) => {
+const getTodoFailure = (error) => ({
+	type: actionsTypes.GET_TODO_FAILURE,
+	error,
+});
+
+export const getTodo = () => {
 	return (dispatch) => {
-		dispatch(get(todos));
+		try {
+			dispatch(getTodoRequest());
+			ListApiService.getItems().then((res) => {
+				dispatch(getTodoSucess(res));
+			});
+		} catch (err) {
+			dispatch(getTodoFailure(err));
+		}
 	};
 };
-// const get = () => ({
-// 	type: actionsTypes.GET_TODO_SUCESS,
-// });
-// const get = () => ({
-// 	type: actionsTypes.GET_TODO_SUCESS,
-// });
-
-// export const getTodoRequest = () => {
-// 	return {
-// 		type: GET_TODO_REQUEST,
-// 	};
-// };
-
-// export const getTodoSucess = (todos) => {
-// 	return {
-// 		type: GET_TODO_SUCESS,
-// 		todos,
-// 	};
-// };
-
-// export const getTodoFailure = (error) => {
-// 	return {
-// 		type: GET_TODO_FAILURE,
-// 		payload: error,
-// 	};
-// };

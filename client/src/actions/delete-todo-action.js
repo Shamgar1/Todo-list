@@ -1,25 +1,32 @@
 import actionsTypes from "./index";
-const deleteItem = (todos) => ({
+import ListApiService from "../services/list-api-service";
+
+const deleteTodoRequest = () => ({
+	type: actionsTypes.DELETE_TODO_REQUEST,
+});
+
+const deleteTodoSucess = (todos) => ({
 	type: actionsTypes.DELETE_TODO_SUCESS,
 	todos,
 });
-// export const addTodoRequest = () => ({
-// 	type: actionsTypes.ADD_TODO_REQUEST,
-// });
 
-export const deleteTodoSucess = (todos) => {
+const deleteTodoFailure = () => ({
+	type: actionsTypes.DELETE_TODO_FAILURE,
+});
+
+export const deleteTodo = (item) => {
 	return (dispatch) => {
-		dispatch(deleteItem(todos));
+		try {
+			debugger;
+			dispatch(deleteTodoRequest());
+			ListApiService.deleteItem(item)
+				.then((res) => res.json())
+				.then((list) => {
+					dispatch(deleteTodoSucess(list));
+				});
+			debugger;
+		} catch (err) {
+			dispatch(deleteTodoFailure(err));
+		}
 	};
-	// type: actionsTypes.ADD_TODO_SUCESS,
-	// payload,
 };
-
-// 	type: actionsTypes.delete(),
-// 	payload,
-// });
-
-// export const deleteTodoFailure = (error) => ({
-// 	type: DELETE_TODO_FAILURE,
-// 	payload: error,
-// });
