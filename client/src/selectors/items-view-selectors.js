@@ -10,12 +10,7 @@ export const getError = (state) => getItemsView(state).error;
 export const getSearchItemsOnlySearched = createSelector(
 	[getSearchItems],
 	(todos) => {
-		// sort() is mutating
 		return [...todos].sort();
 	}
 );
 
-// export const selectTotalCompletedTodos = (state) => {
-// 	const completedTodos = state.todos.filter((item) => item.status);
-// 	return completedTodos.length;
-// };

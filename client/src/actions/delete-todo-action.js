@@ -17,14 +17,10 @@ const deleteTodoFailure = () => ({
 export const deleteTodo = (item) => {
 	return (dispatch) => {
 		try {
-			debugger;
 			dispatch(deleteTodoRequest());
-			ListApiService.deleteItem(item)
-				.then((res) => res.json())
-				.then((list) => {
-					dispatch(deleteTodoSucess(list));
-				});
-			debugger;
+			ListApiService.deleteItem(item).then((item) => {
+				dispatch(deleteTodoSucess(item));
+			});
 		} catch (err) {
 			dispatch(deleteTodoFailure(err));
 		}

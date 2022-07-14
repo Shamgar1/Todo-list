@@ -51,7 +51,7 @@ export default class ListApiService {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
-		debugger;
-		return response;
+
+		return item;
 	}
 }

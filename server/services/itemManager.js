@@ -18,17 +18,6 @@ class ItemManager {
 		return items;
 	};
 
-	// getItems = async () => {
-	// 	const items = await Items.findAll();
-	// 	return items.map((item) => {
-	// 		return {
-	// 			id: item.id,
-	// 			name: item.itemName,
-	// 			status: item.status,
-	// 		};
-	// 	});
-	// };
-
 	handleItem = async (item) => {
 		if (this._isNumber(item)) {
 			return await this.fetchAndAddPokemon(item);
@@ -77,7 +66,7 @@ class ItemManager {
 
 	deleteItem = async (item) => {
 		const row = await Items.destroy({ where: { id: item.id } });
-		return await this.getItems();
+		return item;
 	};
 
 	_isNumber = (value) => !isNaN(Number(value));
@@ -85,8 +74,7 @@ class ItemManager {
 
 	completeItem = async (item) => {
 		await Items.update({ status: item.status }, { where: { id: item.id } });
-		// let newUpdated = await this.getItems();
-		// return newUpdated;
+		return item;
 	};
 }
 module.exports = new ItemManager();

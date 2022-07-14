@@ -30,7 +30,7 @@ function ListContainer({ getTodo, todos, isLoading, isError }) {
 				<div>
 					{isLoading && <Loader size={40} />}
 					{!isLoading && isError ? <div>Error: {isError}</div> : null}
-					{!isLoading && todos.length ? (
+					{!isLoading && todos ? (
 						<ul>
 							{todos.map((todo, key) => (
 								<li className="li" key={key}>

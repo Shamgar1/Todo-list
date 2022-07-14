@@ -19,10 +19,8 @@ const itemsEntitiesReducer = (state = initialState, action) => {
 			};
 		}
 		case actionsTypes.DELETE_TODO_SUCESS: {
-			debugger;
 			return {
-				...state,
-				todos: action.todos,
+				todos: state.todos.filter((item) => item.id !== action.todos.id),
 			};
 		}
 
@@ -33,10 +31,6 @@ const itemsEntitiesReducer = (state = initialState, action) => {
 			};
 
 		case actionsTypes.SEARCH_SUCESS:
-			// if (!state.todos) {
-			// 	return null;
-			// }
-
 			const searchedItem = state.todos.filter((item) =>
 				item.itemName.startsWith([action.todos])
 			);

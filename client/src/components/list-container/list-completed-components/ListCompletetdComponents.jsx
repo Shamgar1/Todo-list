@@ -3,7 +3,6 @@ import styles from "./ListCompletetdComponents.module.scss";
 import PropTypes from "prop-types";
 import { onlyCompletedItems } from "../../../reducers/items-view-reducer";
 import { toggleTodoSucess } from "../../../actions/toggle-todo-action";
-// import { getTodoSucess } from "../../../actions/get-all-todos-action";
 import { Button } from "monday-ui-react-core";
 import ListApiService from "../../../services/list-api-service";
 import { getTodo } from "../../../actions/get-all-todos-action";
@@ -14,9 +13,7 @@ function ListCompletetdComponents({
 	notCompletedItems,
 	onlyCompletedItems,
 	getTodo,
-	// res,
 	onClick,
-	// searchedItems,
 }) {
 	const [isLoading, setIsLoading] = useState(false);
 
