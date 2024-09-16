@@ -1,20 +1,28 @@
-import { DELETE_TODO } from "./constants/index";
+import actionsTypes from "./index";
 import ListApiService from "../services/list-api-service";
-import actionsTypes from "./constants/index";
 
-// const addTodo = () => ({
-// 	type: actionsTypes.ADD_TODO,
-// });
+const deleteTodoRequest = () => ({
+	type: actionsTypes.DELETE_TODO_REQUEST,
+});
 
-const deleteTodo = (itemName) => {
-	return async (dispatch) => {
-		let Item = await ListApiService.deleteItem(itemName).then(
-			(res) => res.data
-		);
-		dispatch({ type: actionsTypes.DELETE_TODO, payload: newItem });
-		debugger;
+const deleteTodoSucess = (todos) => ({
+	type: actionsTypes.DELETE_TODO_SUCESS,
+	todos,
+});
+
+const deleteTodoFailure = () => ({
+	type: actionsTypes.DELETE_TODO_FAILURE,
+});
+
+export const deleteTodo = (item) => {
+	return (dispatch) => {
+		try {
+			dispatch(deleteTodoRequest());
+			ListApiService.deleteItem(item).then((item) => {
+				dispatch(deleteTodoSucess(item));
+			});
+		} catch (err) {
+			dispatch(deleteTodoFailure(err));
+		}
 	};
 };
-
-// module.exports = { addTodo };
-export default deleteTodo;

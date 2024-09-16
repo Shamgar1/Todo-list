@@ -1,19 +1,28 @@
-// // import { GET_ALL_TODOS } from "./constants/index";
-// import ListApiService from "../services/list-api-service";
-// import actionsTypes from "./constants/index";
+import actionsTypes from "./index";
+import ListApiService from "../services/list-api-service";
 
-// // const addTodo = () => ({
-// // 	type: actionsTypes.ADD_TODO,
-// // });
+const getTodoRequest = () => ({
+	type: actionsTypes.GET_TODO_REQUEST,
+});
+const getTodoSucess = (todos) => ({
+	type: actionsTypes.GET_TODO_SUCESS,
+	todos,
+});
 
-// const getAllTodos = () => {
-// 	return (dispatch) => {
-// 		ListApiService.getItems().then((todos) => {
-// 			console.log(todos);
-// 			dispatch({ type: actionsTypes.GET_ALL_TODOS, payload: todos });
-// 		});
-// 	};
-// };
+const getTodoFailure = (error) => ({
+	type: actionsTypes.GET_TODO_FAILURE,
+	error,
+});
 
-// // module.exports = { addTodo };
-// export default getAllTodos;
+export const getTodo = () => {
+	return (dispatch) => {
+		try {
+			dispatch(getTodoRequest());
+			ListApiService.getItems().then((res) => {
+				dispatch(getTodoSucess(res));
+			});
+		} catch (err) {
+			dispatch(getTodoFailure(err));
+		}
+	};
+};

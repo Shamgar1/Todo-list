@@ -18,17 +18,6 @@ class ItemManager {
 		return items;
 	};
 
-	// getItems = async () => {
-	// 	const items = await Items.findAll();
-	// 	return items.map((item) => {
-	// 		return {
-	// 			id: item.id,
-	// 			name: item.itemName,
-	// 			status: item.status,
-	// 		};
-	// 	});
-	// };
-
 	handleItem = async (item) => {
 		if (this._isNumber(item)) {
 			return await this.fetchAndAddPokemon(item);
@@ -46,13 +35,13 @@ class ItemManager {
 	};
 
 	addPokemonItem = async (pokemon) => {
-		await this.addItem(`Catch ${pokemon.name}`);
+		return await this.addItem(`Catch ${pokemon.name}`);
 	};
 
 	fetchAndAddPokemon = async (pokemonId) => {
 		try {
 			const pokemon = await this.pokemonClient.getPokemon(pokemonId);
-			this.addPokemonItem(pokemon);
+			return await this.addPokemonItem(pokemon);
 		} catch (error) {
 			await this.addItem(`Pokemon with ID ${pokemonId} was not found`);
 		}
@@ -77,14 +66,15 @@ class ItemManager {
 
 	deleteItem = async (item) => {
 		const row = await Items.destroy({ where: { id: item.id } });
-		return await this.getItems();
+		return item;
 	};
 
 	_isNumber = (value) => !isNaN(Number(value));
 	_isList = (value) => value.split(",").every(this._isNumber);
 
-	completeItem = async (id, status) => {
-		return await Items.update({ status }, { where: { id } });
+	completeItem = async (item) => {
+		await Items.update({ status: item.status }, { where: { id: item.id } });
+		return item;
 	};
 }
 module.exports = new ItemManager();

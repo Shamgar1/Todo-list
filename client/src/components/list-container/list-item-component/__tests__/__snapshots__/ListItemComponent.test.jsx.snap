@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render snapshots renders correctly 1`] = `<listItemComponent />`;
+
+exports[`render snapshots renders correctly with name 1`] = `
+<listItemComponent
+  name="blabla"
+/>
+`;
+
+exports[`render snapshots renders correctly with name 2`] = `
+<listItemComponent
+  name="blabla"
+/>
+`;

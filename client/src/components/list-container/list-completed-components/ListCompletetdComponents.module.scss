@@ -1,0 +1,30 @@
+.container {
+
+    cursor: pointer;
+    display: flex;
+  
+    align-items: center;
+   
+    border-radius: 5px 5px;
+   
+   
+.Button {
+        height: 40px;
+        width: 120px;
+        margin-right: 100px;
+        align-items: center;
+        background-color: #aa8e8d;
+        color: #ffffff;
+       
+        border: none;
+        border-radius: 20px 20px ;
+        border-color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        margin-bottom: 10px;
+
+        svg {
+            height: 100%;
+        }
+
+}
+}

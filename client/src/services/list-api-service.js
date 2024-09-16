@@ -22,9 +22,7 @@ export default class ListApiService {
 			body: JSON.stringify({ item: itemName }),
 		});
 
-		const item = await response.json();
-
-		return item;
+		return response;
 	}
 
 	/**
@@ -33,13 +31,13 @@ export default class ListApiService {
 	 * @returns {Promise<boolean>}
 	 */
 	static async toggleDone(item) {
-		const response = await fetch(`/item/${item.id}`, {
+		const response = await fetch(`http://localhost:3000/item/${item.id}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
-
-		return response.ok;
+		const todos = await response.json();
+		return todos;
 	}
 
 	/**
@@ -48,12 +46,12 @@ export default class ListApiService {
 	 * @returns {Promise<boolean>}
 	 */
 	static async deleteItem(item) {
-		const response = await fetch("/item", {
+		const response = await fetch("http://localhost:3000/item", {
 			method: "DELETE",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ item }),
 		});
 
-		return response.ok;
+		return item;
 	}
 }

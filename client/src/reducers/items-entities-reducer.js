@@ -1,52 +1,59 @@
-// import ADD_TODO from "../actions/constants";
-
-// const initialState = {
-// 	itemName: [],
-// 	// id: null,
-// 	// status: false
-// };
-
-// const itemsEntitiesReducer = (state = initialState, action) => {
-// 	debugger;
-// 	switch (action.type) {
-// 		case ADD_TODO: {
-// 			// const { content } = action.payload;
-// 			// return {
-// 			// 	...state,
-// 			// 	itemName: [...state.itemName],
-// 			// };
-// 		}
-// 	}
-// };
-
-// export default itemsEntitiesReducer;
-
-// import ADD_TODO from "../actions/add-todo-action";
-// import GET_ALL_TODOS from "../actions/get-all-todos-action";
-import actionTypes from "../actions/constants";
+import actionsTypes from "../actions/index";
 
 const initialState = {
 	todos: [],
 };
 
 const itemsEntitiesReducer = (state = initialState, action) => {
-	debugger;
 	switch (action.type) {
-		// case actionTypes.GET_ALL_TODOS: {
-		// 	return action.payload;
-		// }
-		case actionTypes.ADD_TODO: {
+		case actionsTypes.GET_TODO_SUCESS:
 			return {
 				...state,
-				itemName: [action.payload],
+				todos: action.todos,
 			};
-		}
-		case actionTypes.DELETE_TODO: {
+		case actionsTypes.ADD_TODO_SUCESS: {
+			let newTodos = (state.todos, action.todos);
 			return {
 				...state,
-				itemName: [action.payload],
+				todos: newTodos,
 			};
 		}
+		case actionsTypes.DELETE_TODO_SUCESS: {
+			return {
+				todos: state.todos.filter((item) => item.id !== action.todos.id),
+			};
+		}
+
+		case actionsTypes.TOGGLE_TODO_SUCESS:
+			return {
+				...state,
+				todos: action.todos,
+			};
+
+		case actionsTypes.SEARCH_SUCESS:
+			const searchedItem = state.todos.filter((item) =>
+				item.itemName.startsWith([action.todos])
+			);
+			console.log(searchedItem);
+			debugger;
+			return { ...state, todos: searchedItem };
+
+		case actionsTypes.SHOW_COMPLETED_ITEMS:
+			let completedItems = state.todos.filter((item) => item.status === true);
+			return {
+				...state,
+				todos: completedItems,
+			};
+
+		case actionsTypes.SHOW_NOT_COMPLETES_ITEMS:
+			let notCompletedItems = state.todos.filter(
+				(item) => item.status === false
+			);
+			return {
+				...state,
+				todos: notCompletedItems,
+			};
+
 		default:
 			return state;
 	}

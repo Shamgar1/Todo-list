@@ -7,18 +7,18 @@ router.get("/items", async (_, res) => {
 });
 
 router.post("/item", async (req, res) => {
-	const item = await itemManager.handleItem(req.body.item);
-	res.json(item);
+	await itemManager.handleItem(req.body.item);
+	res.json(await itemManager.getItems());
 });
 
 router.post("/item/:id", async (req, res) => {
-	const item = await itemManager.completeItem(req.params.id, req.body.isDone);
-	res.json(item);
+	await itemManager.completeItem(req.body.item);
+	res.json(await itemManager.getItems());
 });
 
 router.delete("/item", async (req, res) => {
 	await itemManager.deleteItem(req.body.item);
-	res.end();
+	res.json(item);
 });
 
 module.exports = router;

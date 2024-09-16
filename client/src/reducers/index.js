@@ -5,6 +5,7 @@ import { combineReducers } from "redux";
 const allReducers = combineReducers({
 	itemsEntities,
 	itemsView,
+
 });
 
 export default allReducers;

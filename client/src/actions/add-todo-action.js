@@ -1,21 +1,31 @@
-// import { ADD_TODO } from "./constants/index";
+import actionsTypes from "./index";
 import ListApiService from "../services/list-api-service";
-import actionsTypes from "./constants/index";
 
-// const addTodo = () => ({
-// 	type: actionsTypes.ADD_TODO,
-// });
+const addTodoRequest = () => ({
+	type: actionsTypes.ADD_TODO_REQUEST,
+});
 
-const addTodo = (itemName) => {
-	return async (dispatch) => {
-		await ListApiService.postItem(itemName).then((res) => res.data);
-		// console.log(newItem);
-		// console.log(data);
-		debugger;
-		dispatch({ type: actionsTypes.ADD_TODO, payload: itemName });
-		debugger;
+const addTodoSucess = (todos) => ({
+	type: actionsTypes.ADD_TODO_SUCESS,
+	todos,
+});
+
+const addTodoFailure = (error) => ({
+	type: actionsTypes.ADD_TODO_FAILURE,
+	error,
+});
+
+export const addAnotherItem = (name) => {
+	return (dispatch) => {
+		try {
+			dispatch(addTodoRequest());
+			ListApiService.postItem(name)
+				.then((res) => res.json())
+				.then((name) => {
+					dispatch(addTodoSucess(name));
+				});
+		} catch (error) {
+			dispatch(addTodoFailure(error));
+		}
 	};
 };
-
-// module.exports = { addTodo };
-export default addTodo;
